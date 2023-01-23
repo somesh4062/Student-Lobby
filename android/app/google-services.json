@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "437657934473",
+    "project_id": "studentlobby-a1eb4",
+    "storage_bucket": "studentlobby-a1eb4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:437657934473:android:22bb26f11ffeb793378458",
+        "android_client_info": {
+          "package_name": "com.example.student_lobby"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "437657934473-dvpe57qtivptto4t56ju2bs1i0s0ign8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.student_lobby",
+            "certificate_hash": "5cedd540b5a64aa11350c2d8e1f7cffa3566f819"
+          }
+        },
+        {
+          "client_id": "437657934473-hthjenhj5l1399aoiriga5h20h0lv3ml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3FSZgto9YmnaG9e6KMVmI4mHOHrFlij4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "437657934473-hthjenhj5l1399aoiriga5h20h0lv3ml.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
