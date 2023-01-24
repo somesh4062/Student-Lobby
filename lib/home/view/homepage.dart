@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:student_lobby/login&reg/controller/loginController.dart';
 import 'package:student_lobby/widgets/widget.dart';
 
 class HomePage extends GetView {
+  const HomePage({Key key}) : super(key: key);
+
   @override
   Widget build(Object context) {
     return Scaffold(
@@ -23,16 +24,20 @@ class HomePage extends GetView {
             padding: const EdgeInsets.all(10.0),
             child: IconButton(
                 onPressed: () {
-                  signOut();
+                 loginController.signOut();
                 },
                 icon: const Icon(Icons.logout_rounded,color: Colors.black,)),
           )
         ],
       ),
-      body: Column(
+      body: GridView(
+        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+          mainAxisExtent: 120
+        ),
         children: [
           tabView()
         ],
+
       ),
     );
   }

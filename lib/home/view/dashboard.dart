@@ -7,9 +7,11 @@ import 'package:student_lobby/home/view/homepage.dart';
 import 'package:student_lobby/home/view/productsview.dart';
 import 'package:student_lobby/home/view/profileview.dart';
 import 'package:student_lobby/home/view/serviceview.dart';
-import 'package:student_lobby/login&reg/controller/loginController.dart';
+import 'package:student_lobby/widgets/widget.dart';
 
 class Dashboard extends StatelessWidget {
+  const Dashboard({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<DashboardController>(builder: ((controller) {
@@ -26,7 +28,7 @@ class Dashboard extends StatelessWidget {
                   padding: const EdgeInsets.all(10.0),
                   child: IconButton(
                     onPressed: () {
-                      signOut();
+                     loginController.signOut();
                     },
                     icon: const Icon(Icons.logout),
                     color: Colors.black,
