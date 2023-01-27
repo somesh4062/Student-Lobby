@@ -32,6 +32,7 @@ class HomePage extends GetView {
       ),
       body: GridView(
         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+          maxCrossAxisExtent: Get.width,
           mainAxisExtent: 120
         ),
         children: [

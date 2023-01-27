@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:student_lobby/login&reg/controller/loginController.dart';
+import 'package:student_lobby/login_reg/controller/loginController.dart';
 import 'package:student_lobby/widgets/widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Login extends StatelessWidget {
-  LoginController loginController = Get.find<LoginController>();
+  LoginController loginController = Get.put(LoginController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(

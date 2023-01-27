@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:student_lobby/login&reg/controller/loginController.dart';
+import 'package:student_lobby/login_reg/controller/loginController.dart';
 
 LoginController loginController = Get.put(LoginController());
 textfield(labelText, textController, bool type) {
@@ -31,7 +31,7 @@ regularbtn(btnText) {
                 fontSize: 20, fontStyle: FontStyle.normal)),
         style: ButtonStyle(
             overlayColor: MaterialStateProperty.all(Colors.yellow),
-            minimumSize: MaterialStateProperty.all(const Size(250, 50)))),
+            minimumSize: MaterialStateProperty.all(Size(250, 50)))),
   );
 }
 
