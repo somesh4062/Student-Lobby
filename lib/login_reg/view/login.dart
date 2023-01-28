@@ -6,11 +6,9 @@ import 'package:student_lobby/widgets/widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Login extends StatelessWidget {
-
   Login({Key key}) : super(key: key);
-  
-  
-    LoginController loginController = Get.put(LoginController());
+
+  LoginController loginController = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +36,9 @@ class Login extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       InkWell(
+                        onTap: () {
+                          loginController.signInWithGoogle();
+                        },
                         child: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(50),
@@ -95,7 +96,7 @@ class Login extends StatelessWidget {
                     style: GoogleFonts.montserrat(),
                   ),
                   InkWell(
-                    onTap: (() => Get.to(()=>Register())),
+                    onTap: (() => Get.to(() => Register())),
                     child: Text(
                       "Register",
                       style: GoogleFonts.montserrat(color: Colors.blue),

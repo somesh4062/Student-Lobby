@@ -6,6 +6,7 @@ import 'package:student_lobby/home/controller/dashboardController.dart';
 import 'package:student_lobby/home/view/homepage.dart';
 import 'package:student_lobby/home/view/productsview.dart';
 import 'package:student_lobby/home/view/profileview.dart';
+import 'package:student_lobby/home/view/searchView.dart';
 import 'package:student_lobby/home/view/serviceview.dart';
 import 'package:student_lobby/widgets/widget.dart';
 
@@ -24,11 +25,19 @@ class Dashboard extends StatelessWidget {
               style: GoogleFonts.montserrat(color: Colors.black),
             ),
             actions: [
+              IconButton(
+                  onPressed: () {
+                    Get.to(() => const SearchView());
+                  },
+                  icon: const Icon(
+                    CupertinoIcons.search,
+                    color: Colors.black,
+                  )),
               Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.only(right: 10),
                   child: IconButton(
                     onPressed: () {
-                     loginController.signOut();
+                      loginController.signOut();
                     },
                     icon: const Icon(Icons.logout),
                     color: Colors.black,

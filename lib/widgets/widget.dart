@@ -3,8 +3,15 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:student_lobby/login_reg/controller/loginController.dart';
 import 'package:student_lobby/login_reg/view/register.dart';
+import 'package:student_lobby/services/view/service_reg_View.dart';
+
+import '../home/controller/searchViewController.dart';
+import '../services/controller/servicesController.dart';
 
 LoginController loginController = Get.put(LoginController());
+ServicesController servicesController = Get.put(ServicesController());
+SearchViewController searchViewController = Get.put(SearchViewController());
+
 textfield(labelText, textController, bool type) {
   return Padding(
     padding: const EdgeInsets.only(left: 30, right: 30, top: 10),
@@ -29,6 +36,19 @@ regularbtn(btnText) {
           } else if (btnText.toString() == "Register") {
             loginController.register(loginController.emailController.text,
                 loginController.password.text);
+          } else if (btnText.toString() == "Register Service") {
+            servicesController.registerService(
+                servicesController.hostelNameController.text,
+                servicesController.ownerNameController.text,
+                servicesController.rentController.text,
+                servicesController.emailController.text,
+                servicesController.contactController.text,
+                servicesController.stateController.text,
+                servicesController.cityController.text,
+                servicesController.areaController.text,
+                servicesController.addressController.text);
+          } else if (btnText.toString() == "Search") {
+            searchViewController.searchService(searchViewController.searchController.text);
           }
         },
         child: Text(btnText,
@@ -36,7 +56,7 @@ regularbtn(btnText) {
                 fontSize: 20, fontStyle: FontStyle.normal)),
         style: ButtonStyle(
             overlayColor: MaterialStateProperty.all(Colors.yellow),
-            minimumSize: MaterialStateProperty.all(Size(250, 50)))),
+            minimumSize: MaterialStateProperty.all(const Size(250, 50)))),
   );
 }
 
@@ -63,39 +83,56 @@ regularbtn(btnText) {
 // }
 
 serviceTab(imageUrl, label) {
-  return Padding(
-    padding: const EdgeInsets.all(10.0),
-    child: Column(
-      children: [
-        Container(
-          decoration: BoxDecoration(
+  return InkWell(
+    onTap: () {
+      if (label.toString() == "Hostel") {
+        servicesController.addressController.clear();
+     servicesController.hostelNameController.clear();
+                servicesController.ownerNameController.clear();
+                servicesController.rentController.clear();
+                servicesController.emailController.clear();
+                servicesController.contactController.clear();
+                servicesController.stateController.clear();
+                servicesController.cityController.clear();
+                servicesController.areaController.clear();
+                servicesController.addressController.clear();
+        Get.to(()=>ServiceRegView());
+      }
+    },
+    child: Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(40),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 7,
+                      offset: const Offset(0, 2))
+                ]),
+            height: Get.height * 0.2,
+            width: Get.width * 0.4,
+            child: ClipRRect(
               borderRadius: BorderRadius.circular(40),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 2,
-                    blurRadius: 7,
-                    offset: const Offset(0, 2))
-              ]),
-          height: Get.height * 0.2,
-          width: Get.width * 0.4,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(40),
-            child: Image.network(
-              imageUrl,
-              fit: BoxFit.fill,
+              child: Image.network(
+                imageUrl,
+                fit: BoxFit.fill,
+              ),
             ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            label,
-            style: GoogleFonts.montserrat(fontSize: 20),
-          ),
-        )
-      ],
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              label,
+              style: GoogleFonts.montserrat(fontSize: 20),
+            ),
+          )
+        ],
+      ),
     ),
   );
 }
