@@ -6,7 +6,6 @@ import 'package:student_lobby/widgets/widget.dart';
 class SearchView extends StatelessWidget {
   const SearchView({Key key}) : super(key: key);
 
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,10 +13,12 @@ class SearchView extends StatelessWidget {
           child: SingleChildScrollView(
         child: Column(
           children: [
-            Text("Search Services", style: GoogleFonts.montserrat(fontSize: 30)),
-            textfield("Enter Your City", searchViewController.searchController, false),
-            regularbtn("Search")
-    
+            Text("Search Services",
+                style: GoogleFonts.montserrat(fontSize: 30)),
+            textfield("Enter Your City", searchViewController.searchController,
+                false),
+            regularbtn("Search"),
+            
           ],
         ),
       )),

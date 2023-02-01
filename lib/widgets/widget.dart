@@ -118,7 +118,10 @@ serviceTab(imageUrl, label) {
             width: Get.width * 0.4,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(40),
-              child: Image.network(
+              child: imageUrl.toString() == null ?
+              const CircularProgressIndicator(color: Colors.black):
+              
+              Image.network(
                 imageUrl,
                 fit: BoxFit.fill,
               ),
