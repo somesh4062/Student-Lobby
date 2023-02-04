@@ -8,16 +8,30 @@ import 'package:student_lobby/home/view/productsview.dart';
 import 'package:student_lobby/home/view/profileview.dart';
 import 'package:student_lobby/home/view/searchView.dart';
 import 'package:student_lobby/home/view/serviceview.dart';
+import 'package:student_lobby/main.dart';
 import 'package:student_lobby/widgets/widget.dart';
 
 class Dashboard extends StatelessWidget {
-  const Dashboard({Key key}) : super(key: key);
-
+  Dashboard({Key? key}) : super(key: key);
+  DashboardController dashboardController = Get.find<DashboardController>();
   @override
   Widget build(BuildContext context) {
     return GetBuilder<DashboardController>(builder: ((controller) {
       return Scaffold(
           appBar: AppBar(
+            leading: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: InkWell(
+                onTap: () {
+                  // Get.to(() => ProfileView());
+                  dashboardController.changeTabIndex(3);
+                },
+                child: const CircleAvatar(
+                  backgroundImage: NetworkImage(
+                      "https://images.pexels.com/photos/1855582/pexels-photo-1855582.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"),
+                ),
+              ),
+            ),
             backgroundColor: Colors.white,
             centerTitle: true,
             title: Text(
@@ -97,7 +111,7 @@ class Dashboard extends StatelessWidget {
     }));
   }
 
-  _bottomNavigationBarItem({IconData icon, String label}) {
+  _bottomNavigationBarItem({IconData? icon, String? label}) {
     return BottomNavigationBarItem(icon: Icon(icon), label: label);
   }
 }

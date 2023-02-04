@@ -12,51 +12,69 @@ LoginController loginController = Get.put(LoginController());
 ServicesController servicesController = Get.put(ServicesController());
 SearchViewController searchViewController = Get.put(SearchViewController());
 
-textfield(labelText, textController, bool type) {
+textfield(labelText, textController, bool type, bool editable, Icon? prefixicon,
+    Icon? suffixicon) {
   return Padding(
     padding: const EdgeInsets.only(left: 30, right: 30, top: 10),
     child: TextFormField(
+      enabled: editable,
       obscureText: type,
       controller: textController,
       decoration: InputDecoration(
-          border: const OutlineInputBorder(), labelText: labelText),
+          prefixIcon: prefixicon,
+          suffixIcon: IconButton(
+              onPressed: () {},
+              icon: suffixicon ?? const Icon(
+                      Icons.stop,
+                      color: Colors.white,
+                    )),
+          border: const OutlineInputBorder(),
+          labelText: labelText),
     ),
   );
 }
 
-regularbtn(btnText) {
+regularbtn(String btnText,void Function () ? onPressed) {
   return Padding(
     padding: const EdgeInsets.all(10.0),
     child: ElevatedButton(
-        onPressed: () {
-          if (btnText.toString() == "Google Login") {
-            loginController.signInWithGoogle();
-          } else if (btnText.toString() == "SignOut") {
-            loginController.signOut();
-          } else if (btnText.toString() == "Register") {
-            loginController.register(loginController.emailController.text,
-                loginController.password.text);
-          } else if (btnText.toString() == "Register Service") {
-            servicesController.registerService(
-                servicesController.hostelNameController.text,
-                servicesController.ownerNameController.text,
-                servicesController.rentController.text,
-                servicesController.emailController.text,
-                servicesController.contactController.text,
-                servicesController.stateController.text,
-                servicesController.cityController.text,
-                servicesController.areaController.text,
-                servicesController.addressController.text);
-          } else if (btnText.toString() == "Search") {
-            searchViewController.searchService(searchViewController.searchController.text);
-          }
-        },
+        onPressed: onPressed,//() {
+          // if (btnText.toString() == "Google Login") {
+          //   loginController.signInWithGoogle();
+          // } else if (btnText.toString() == "SignOut") {
+          //   loginController.signOut();
+          // } else if (btnText.toString() == "Register") {
+          //   loginController.register(loginController.emailController.text,
+          //       loginController.password.text);
+          // } else if (btnText.toString() == "Register Service") {
+          //   servicesController.registerService(
+          //       servicesController.hostelNameController.text,
+          //       servicesController.ownerNameController.text,
+          //       servicesController.rentController.text,
+          //       servicesController.emailController.text,
+          //       servicesController.contactController.text,
+          //       servicesController.stateController.text,
+          //       servicesController.cityController.text,
+          //       servicesController.areaController.text,
+          //       servicesController.addressController.text);
+          // } else if (btnText.toString() == "Search") {
+          //   searchViewController
+          //       .searchService(searchViewController.searchController.text);
+          // }
+        // },
         child: Text(btnText,
             style: GoogleFonts.montserrat(
+              color: Colors.black,
                 fontSize: 20, fontStyle: FontStyle.normal)),
-        style: ButtonStyle(
-            overlayColor: MaterialStateProperty.all(Colors.yellow),
-            minimumSize: MaterialStateProperty.all(const Size(250, 50)))),
+        style: ElevatedButton.styleFrom(
+                 backgroundColor: Colors.white,
+                 
+                // side: BorderSide(color: Colors.black, width: 1),
+                 elevation: 08,
+                 minimumSize: const Size(150,50),
+                 shadowColor: Colors.teal,
+                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+               ),),
   );
 }
 
@@ -87,16 +105,16 @@ serviceTab(imageUrl, label) {
     onTap: () {
       if (label.toString() == "Hostel") {
         servicesController.addressController.clear();
-     servicesController.hostelNameController.clear();
-                servicesController.ownerNameController.clear();
-                servicesController.rentController.clear();
-                servicesController.emailController.clear();
-                servicesController.contactController.clear();
-                servicesController.stateController.clear();
-                servicesController.cityController.clear();
-                servicesController.areaController.clear();
-                servicesController.addressController.clear();
-        Get.to(()=>ServiceRegView());
+        servicesController.hostelNameController.clear();
+        servicesController.ownerNameController.clear();
+        servicesController.rentController.clear();
+        servicesController.emailController.clear();
+        servicesController.contactController.clear();
+        servicesController.stateController.clear();
+        servicesController.cityController.clear();
+        servicesController.areaController.clear();
+        servicesController.addressController.clear();
+        Get.to(() => ServiceRegView());
       }
     },
     child: Padding(
@@ -118,13 +136,12 @@ serviceTab(imageUrl, label) {
             width: Get.width * 0.4,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(40),
-              child: imageUrl.toString() == null ?
-              const CircularProgressIndicator(color: Colors.black):
-              
-              Image.network(
-                imageUrl,
-                fit: BoxFit.fill,
-              ),
+              child: imageUrl.toString() == null
+                  ? const CircularProgressIndicator(color: Colors.black)
+                  : Image.network(
+                      imageUrl,
+                      fit: BoxFit.fill,
+                    ),
             ),
           ),
           Padding(

@@ -14,9 +14,9 @@ void main() async {
   await Firebase.initializeApp();
   runApp( MyApp());
 }
-
+ 
 class MyApp extends StatelessWidget {
-   MyApp({Key key}) : super(key: key);
+   MyApp({Key? key}) : super(key: key);
   LoginController loginController = Get.put(LoginController());
   DashboardController dashboardController = Get.put(DashboardController());
   // This widget is the root of your application.
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       // getPages: AppPages.list,
       // initialRoute: AppRoutes.DASHBOARD,
       debugShowCheckedModeBanner: false,
-      home: StreamBuilder<User>(
+      home: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasError) {

@@ -6,7 +6,7 @@ import 'package:student_lobby/widgets/widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Login extends StatelessWidget {
-  Login({Key key}) : super(key: key);
+  Login({Key? key}) : super(key: key);
 
   LoginController loginController = Get.put(LoginController());
 
@@ -26,8 +26,10 @@ class Login extends StatelessWidget {
                   child: Text("WelCome in Student Lobby",
                       style: GoogleFonts.acme(fontSize: 45)),
                 ),
-                textfield("Email", loginController.emailController, false),
-                textfield("Password", loginController.password, true),
+                textfield("Email", loginController.emailController, false, true,
+                    const Icon(Icons.email_outlined), null),
+                textfield("Password", loginController.password, true, true,
+                    const Icon(Icons.password_outlined), null),
 
                 Padding(
                   padding: const EdgeInsets.only(
@@ -70,6 +72,9 @@ class Login extends StatelessWidget {
                         ),
                       ),
                       InkWell(
+                          onTap: () {
+                            loginController.login(loginController.emailController.text, loginController.password.text);
+                          },
                           child: Container(
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(100),
