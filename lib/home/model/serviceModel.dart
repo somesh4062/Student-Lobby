@@ -2,15 +2,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ServiceModel {
-  final String name;
-  final String ownername;
-  final String address;
-  final String area;
-  final String city;
-  final String state;
-  final String email;
-  final int contact;
-  final int rent;
+  final String? name;
+  final String? ownername;
+  final String? address;
+  final String? area;
+  final String? city;
+  final String? state;
+  final String? email;
+  final int? contact;
+  final int? rent;
 
   const ServiceModel(
       {this.name,
@@ -38,16 +38,16 @@ class ServiceModel {
 
   factory ServiceModel.fromSnapshot(
       DocumentSnapshot<Map<String, dynamic>> documentSnapshot) {
-    final data = documentSnapshot.data();
+    Map<String,dynamic>? data = documentSnapshot.data();
     return ServiceModel(
-        name: data["name"] ,
-        ownername: data["ownername"] ,
-        address: data["address"],
-        area:data["area"] ,
-        city:data["city"] ,
-        state: data["state"],
-        rent: data["rent"],
-        contact: data["contact"]
+        name: data?["name"] ,
+        ownername: data?["ownername"] ,
+        address: data?["address"],
+        area:data?["area"] ,
+        city:data?["city"] ,
+        state: data?["state"],
+        rent: data?["rent"],
+        contact: data?["contact"]
         );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -15,7 +16,7 @@ class ServicesController extends GetxController {
   TextEditingController addressController = TextEditingController();
 
   registerService(
-      hostelName, ownerName, rent, email, contact, state, city, area, address) {
+      hostelName, ownerName, rent, email, contact, state, city, area, address)async {
     var db = FirebaseFirestore.instance;
 
     final hostel = {
@@ -30,12 +31,17 @@ class ServicesController extends GetxController {
       "address": address
     };
 
-    db.collection("hostel").add(hostel).then((value) => {
-      Get.back(),
-      Fluttertoast.showToast(msg: "Registered Successfully"),
+    db.collection("hostel").add(hostel).then((ref) {
+      FirebaseFirestore.instance.collection('Users').doc(FirebaseAuth.instance.currentUser?.uid).update(
+        {"hostel":ref.id}
+      );
+      Get.back();
+      Fluttertoast.showToast(msg: "Registered Successfully");
 
-      debugPrint(hostel.toString()),
+      debugPrint(hostel.toString());
       
-    });
+    },onError: (obj){
+      debugPrint("Error");
+    } );
   }
 }

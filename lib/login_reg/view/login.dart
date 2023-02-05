@@ -28,7 +28,7 @@ class Login extends StatelessWidget {
                 ),
                 textfield("Email", loginController.emailController, false, true,
                     const Icon(Icons.email_outlined), null),
-                textfield("Password", loginController.password, true, true,
+                textfield("Password", loginController.passwordController, true, true,
                     const Icon(Icons.password_outlined), null),
 
                 Padding(
@@ -73,7 +73,7 @@ class Login extends StatelessWidget {
                       ),
                       InkWell(
                           onTap: () {
-                            loginController.login(loginController.emailController.text, loginController.password.text);
+                            loginController.login(loginController.emailController.text, loginController.passwordController.text);
                           },
                           child: Container(
                               decoration: BoxDecoration(

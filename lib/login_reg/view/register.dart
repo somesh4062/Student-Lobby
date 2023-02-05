@@ -16,8 +16,8 @@ class Register extends StatelessWidget {
                       children: [
             textfield("Name",loginController. nameController,false,true,Icon(Icons.person),null),
             textfield("Email",loginController. emailController,false,true, Icon(Icons.email),null),
-            textfield("Phone Number",loginController. phonenumber,false,true,Icon(Icons.phone),null),
-            textfield("Password",loginController. password, true,true, Icon(Icons.password),null),
+            textfield("Phone Number",loginController. phonenumberController,false,true,Icon(Icons.phone),null),
+            textfield("Password",loginController. passwordController, true,true, Icon(Icons.password),null),
             regularbtn("Register",null)
             
                       ],

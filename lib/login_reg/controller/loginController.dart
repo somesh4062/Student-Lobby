@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -10,8 +11,8 @@ import 'package:student_lobby/login_reg/view/login.dart';
 class LoginController extends GetxController {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-  TextEditingController phonenumber = TextEditingController();
-  TextEditingController password = TextEditingController();
+  TextEditingController phonenumberController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   signInWithGoogle() async {
     GoogleSignInAccount? googleSignInAccount = await GoogleSignIn().signIn();
 
@@ -22,9 +23,19 @@ class LoginController extends GetxController {
         idToken: googleSignInAuthentication?.idToken);
     UserCredential userCredential =
         await FirebaseAuth.instance.signInWithCredential(credential);
+    
     // Get.put(DashboardController());
     if (userCredential.user != null) {
+      var result = await FirebaseFirestore.instance.collection('Users').doc(userCredential.user?.uid).get();
+      
+      if(!result.exists);{
+        FirebaseFirestore.instance.collection('Users').doc(userCredential.user?.uid).set(
+        {
+         'displayName': userCredential.user?.displayName, 'uid': userCredential.user?.uid
+        });
+      }
       Get.to(() => Dashboard(), binding: DashboardBinding());
+
     }
 
     debugPrint(userCredential.user?.displayName);
@@ -38,16 +49,21 @@ class LoginController extends GetxController {
 
   login(email, password) async {
     try {
-      FirebaseAuth.instance
+      UserCredential auth =await  FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password)
           .whenComplete(() => {
                 debugPrint(email + " " + password),
+                
                 Get.to(() => Dashboard()),
                 Fluttertoast.showToast(msg: "Successfully Logged In")
               })
           .catchError((e) {
       Fluttertoast.showToast(msg: e.toString());      
           });
+      FirebaseFirestore.instance.collection('Users').doc(auth.user?.uid).set(
+        {
+         'displayName': auth.user?.displayName, 'uid': auth.user?.uid
+        });
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString());
     }

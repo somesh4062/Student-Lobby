@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:student_lobby/home/controller/profileController.dart';
 import 'package:student_lobby/login_reg/controller/loginController.dart';
 import 'package:student_lobby/login_reg/view/register.dart';
 import 'package:student_lobby/services/view/service_reg_View.dart';
@@ -13,25 +15,70 @@ ServicesController servicesController = Get.put(ServicesController());
 SearchViewController searchViewController = Get.put(SearchViewController());
 
 textfield(labelText, textController, bool type, bool editable, Icon? prefixicon,
-    Icon? suffixicon) {
-  return Padding(
-    padding: const EdgeInsets.only(left: 30, right: 30, top: 10),
-    child: TextFormField(
-      enabled: editable,
-      obscureText: type,
-      controller: textController,
-      decoration: InputDecoration(
-          prefixIcon: prefixicon,
-          suffixIcon: IconButton(
-              onPressed: () {},
-              icon: suffixicon ?? const Icon(
-                      Icons.stop,
-                      color: Colors.white,
-                    )),
-          border: const OutlineInputBorder(),
-          labelText: labelText),
-    ),
-  );
+    Icon? suffixIcon) {
+  return CustomTextField(labelText: labelText,textController: textController,type: type,editable: editable,prefixIcon: prefixicon,
+    suffixIcon: suffixIcon);
+}
+
+class CustomTextField extends StatefulWidget {
+
+  String? labelText;
+
+  TextEditingController? textController;
+
+  bool? type;
+
+  bool? editable; 
+
+  Icon? prefixIcon;
+
+  Icon? suffixIcon;
+
+  void Function (String)?  onSubmit;
+
+  CustomTextField({
+    this.labelText, this.textController, this.type, this.editable, this.prefixIcon,
+    this.suffixIcon, this.onSubmit,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<CustomTextField> createState() => _CustomTextFieldState();
+}
+
+class _CustomTextFieldState extends State<CustomTextField> {
+
+  ProfileController profileController=Get.put(ProfileController());
+  
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 30, right: 30, top: 10),
+      child: TextFormField(
+        onFieldSubmitted: widget.onSubmit,
+        obscureText: widget.type??false,
+        controller: widget.textController,
+        decoration: InputDecoration(
+            prefixIcon:widget.prefixIcon,
+            suffixIcon: IconButton(
+                onPressed: () {
+                  
+                  debugPrint("Pressed");
+                  setState(() {
+                    // widget.editable=widget.editable??false;
+                    widget.editable=widget.editable!=true?true:false;
+                  });
+                },
+                icon: widget.suffixIcon ?? const Icon(
+                        Icons.stop,
+                        color: Colors.white,
+                      )),
+            border: const OutlineInputBorder(),
+            labelText: widget.labelText),
+      ),
+    );
+  }
 }
 
 regularbtn(String btnText,void Function () ? onPressed) {
