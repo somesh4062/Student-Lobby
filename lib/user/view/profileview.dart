@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:student_lobby/home/controller/profileController.dart';
+import 'package:student_lobby/user/controller/profileController.dart';
 import 'package:student_lobby/widgets/widget.dart';
 
 class ProfileView extends GetView {

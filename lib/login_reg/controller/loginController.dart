@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:student_lobby/home/view/dashboard.dart';
 import 'package:student_lobby/home/view/dashboardbinding.dart';
 import 'package:student_lobby/login_reg/view/login.dart';
@@ -13,6 +17,18 @@ class LoginController extends GetxController {
   TextEditingController emailController = TextEditingController();
   TextEditingController phonenumberController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  String profileImage = "";
+  // dynamic backgroundImage;
+
+  // @override
+  // void initState() async {
+  //   final storageRef = FirebaseStorage.instance.ref();
+  //   backgroundImage =
+  //       await storageRef.child("loginbackground.png").getDownloadURL();
+  //   debugPrint(backgroundImage.toString());
+  // }
+
   signInWithGoogle() async {
     GoogleSignInAccount? googleSignInAccount = await GoogleSignIn().signIn();
 
@@ -23,19 +39,25 @@ class LoginController extends GetxController {
         idToken: googleSignInAuthentication?.idToken);
     UserCredential userCredential =
         await FirebaseAuth.instance.signInWithCredential(credential);
-    
+
     // Get.put(DashboardController());
     if (userCredential.user != null) {
-      var result = await FirebaseFirestore.instance.collection('Users').doc(userCredential.user?.uid).get();
-      
-      if(!result.exists);{
-        FirebaseFirestore.instance.collection('Users').doc(userCredential.user?.uid).set(
-        {
-         'displayName': userCredential.user?.displayName, 'uid': userCredential.user?.uid
+      var result = await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(userCredential.user?.uid)
+          .get();
+
+      if (!result.exists) ;
+      {
+        FirebaseFirestore.instance
+            .collection('Users')
+            .doc(userCredential.user?.uid)
+            .set({
+          'displayName': userCredential.user?.displayName,
+          'uid': userCredential.user?.uid
         });
       }
       Get.to(() => Dashboard(), binding: DashboardBinding());
-
     }
 
     debugPrint(userCredential.user?.displayName);
@@ -49,21 +71,20 @@ class LoginController extends GetxController {
 
   login(email, password) async {
     try {
-      UserCredential auth =await  FirebaseAuth.instance
+      UserCredential auth = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password)
           .whenComplete(() => {
                 debugPrint(email + " " + password),
-                
                 Get.to(() => Dashboard()),
                 Fluttertoast.showToast(msg: "Successfully Logged In")
               })
           .catchError((e) {
-      Fluttertoast.showToast(msg: e.toString());      
-          });
-      FirebaseFirestore.instance.collection('Users').doc(auth.user?.uid).set(
-        {
-         'displayName': auth.user?.displayName, 'uid': auth.user?.uid
-        });
+        Fluttertoast.showToast(msg: e.toString());
+      });
+      FirebaseFirestore.instance
+          .collection('Users')
+          .doc(auth.user?.uid)
+          .set({'displayName': auth.user?.displayName, 'uid': auth.user?.uid});
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString());
     }
@@ -87,5 +108,19 @@ class LoginController extends GetxController {
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString());
     }
+  }
+
+  getProfileImage() async {
+    final image =
+        await ImagePicker.platform.getImage(source: ImageSource.gallery);
+    //profileImage = image as File;
+    final ref = FirebaseStorage.instance.ref().child("profileImages/"+image!.name.toString());
+    await ref.putFile(File(image.path));
+    ref.getDownloadURL().then((value) {
+      debugPrint(value);
+      profileImage = value;
+      update();
+    });
+    update();
   }
 }
