@@ -2,10 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:student_lobby/home/controller/searchViewController.dart';
 import 'package:student_lobby/product/view/productlistView.dart';
 import 'package:student_lobby/widgets/widget.dart';
 
 class SearchView extends StatelessWidget {
+  //TextEditingController searchTxtController =TextEditingController();
+  SearchViewController searchViewController=Get.put(SearchViewController());
   SearchView({Key? key}) : super(key: key);
 
   @override
@@ -54,6 +57,11 @@ class SearchView extends StatelessWidget {
               padding: const EdgeInsets.only(
                   left: 60, right: 30, top: 10, bottom: 10),
               child: TextFormField(
+                onChanged: (searchText) {
+                  searchViewController.searchText.value=searchText;
+                  searchViewController.update();
+                  debugPrint("ST"+searchViewController.searchText.value);
+                },
                 decoration: InputDecoration(
                   suffixIconColor: Colors.black,
                   suffixIcon: Icon(Icons.close),

@@ -1,41 +1,62 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:student_lobby/home/controller/searchViewController.dart';
+import 'package:student_lobby/services/controller/servicesController.dart';
+import 'package:student_lobby/widgets/widget.dart';
 
 class ProductListView extends StatelessWidget {
   ProductListView({Key? key});
+  var db = FirebaseFirestore.instance;
+  SearchViewController servicesController = Get.put(SearchViewController());
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListView.builder(
-          itemCount: 5,
-          itemBuilder: (context, index) {
-            return Card(
-              child: ListTile(
-                trailing: IconButton(onPressed: () {}, icon: Icon(Icons.arrow_right
-                )),
-                // visualDensity: VisualDensity(vertical: 5),
-                // minVerticalPadding: double.nan,
-                //horizontalTitleGap: double.negativeInfinity,
-                contentPadding: EdgeInsets.all(0),
-                title: Text("Anirudh Hostel"),
-                isThreeLine: true,
-                subtitle: Column(
-                  children: [
-                    Text("Contact Number : 81464546522"),
-                    Text("Email : abanhimanege@ice.com"),
-                    Text("Address : Opak City"),
-                    Text("Area : VijayNagar"),
-                  ],
-                ),
-                leading: SizedBox(
-                  child: Image.network(
-                    "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.UY0vt0ARKbq0EsA_-C4nVQHaE7%26pid%3DApi&f=1&ipt=f09a282b4a93aa83d743340b02074ea066a23920ab070767301bde447ccadad1&ipo=images",
-                    fit: BoxFit.fill,
-                  ),
-                ),
-              ),
-            );
-          }),
+    return GetBuilder<SearchViewController>(
+      init: SearchViewController(),
+      builder: (controller) {
+        //debugPrint("ST"+controller.searchText.value);
+        return StreamBuilder<QuerySnapshot>(
+            stream: db.collection('hostel').where("cityAsArray",arrayContains: controller.searchText.value).snapshots(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return const  Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                return ListView(
+                  children: snapshot.data!.docs.map((doc) {
+                    return Card(
+                      child: ListTile(
+                         trailing: IconButton(onPressed: () {}, icon: Icon(Icons.arrow_right)),
+                        // visualDensity: VisualDensity(vertical: 5),
+                        // minVerticalPadding: double.nan,
+                        //horizontalTitleGap: double.negativeInfinity,
+                        contentPadding: EdgeInsets.all(0),
+                        title: Text(doc["name"]),
+                        isThreeLine: true,
+                        subtitle: Column(
+                          children: [
+                            Text("Contact Number" +doc["contact"].toString()),
+                            Text("Email :"+doc["email"]),
+                            Text("Address "+doc["address"]),
+                            Text("City :"+doc["city"]),
+                          ],
+                        ),
+                        leading: SizedBox(
+                          child: Image.network(
+                            "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.UY0vt0ARKbq0EsA_-C4nVQHaE7%26pid%3DApi&f=1&ipt=f09a282b4a93aa83d743340b02074ea066a23920ab070767301bde447ccadad1&ipo=images",
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                );
+              }
+            },
+          );
+      }
     );
   }
 }

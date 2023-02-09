@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,9 +17,20 @@ class ServicesController extends GetxController {
   TextEditingController areaController = TextEditingController();
   TextEditingController addressController = TextEditingController();
 
+
+  convertToArray( String str){
+    List arr = [];
+    for (int i=0;i<=str.length;i++){
+      arr.add(str.substring(0,i));
+    }
+    return arr;
+  }
+
   registerService(
       hostelName, ownerName, rent, email, contact, state, city, area, address)async {
     var db = FirebaseFirestore.instance;
+
+
 
     final hostel = {
       "name": hostelName,
@@ -28,7 +41,8 @@ class ServicesController extends GetxController {
       "state": state,
       "city": city,
       "area": area,
-      "address": address
+      "address": address,
+      "cityAsArray": convertToArray(city)
     };
 
     db.collection("hostel").add(hostel).then((ref) {

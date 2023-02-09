@@ -5,6 +5,7 @@ import 'package:student_lobby/home/model/serviceModel.dart';
 
 class SearchViewController extends GetxController {
   TextEditingController searchController = TextEditingController();
+  RxString searchText="".obs;
 
   Future<List<ServiceModel>> searchService(city) async {
     var db = FirebaseFirestore.instance;
