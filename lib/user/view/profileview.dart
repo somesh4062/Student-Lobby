@@ -15,7 +15,7 @@ class ProfileView extends GetView {
         child: Column(
           children:  [
             const Padding(
-              padding: EdgeInsets.all(15.0),
+              padding: EdgeInsets.all(20.0),
               child: CircleAvatar(
                 backgroundImage: NetworkImage(
                     "https://images.pexels.com/photos/1855582/pexels-photo-1855582.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2", ),radius: 40,
@@ -59,17 +59,21 @@ class ProfileView extends GetView {
               },
             ),
 
-            CustomTextField(
-              labelText: "Password", 
-              textController: profileController.passwordController,
-              editable: true,type: true,
-              prefixIcon: Icon(Icons.password),
-              suffixIcon: Icon(Icons.edit),
-              onSubmit: (value){
-                profileController.name.value = value;
-                profileController.saveData("Password", value);
-              },
+            Padding(
+              padding: const EdgeInsets.only(bottom: 20),
+              child: CustomTextField(
+                labelText: "Password", 
+                textController: profileController.passwordController,
+                editable: true,type: true,
+                prefixIcon: Icon(Icons.password),
+                suffixIcon: Icon(Icons.edit),
+                onSubmit: (value){
+                  profileController.name.value = value;
+                  profileController.saveData("Password", value);
+                },
+              ),
             ),
+            regularbtn("Save", () { })
 
             // textfield("Email", profileController.emailController, false,true,Icon(Icons.email), Icon(Icons.edit)),
             // textfield("Contact", profileController.phonenumber, false,true,Icon(Icons.phone), Icon(Icons.edit)),

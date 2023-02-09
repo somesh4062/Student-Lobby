@@ -9,17 +9,53 @@ class HomePage extends GetView {
   @override
   Widget build(Object context) {
     return Scaffold(
-    
-      body: GridView(
-        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: Get.width,
-          mainAxisExtent: 120
+        body: ListView(
+      children: const [
+        Padding(
+          padding: EdgeInsets.only(left: 10, right: 10, top: 10),
+          child: Card(
+            elevation: 5,
+            child: ListTile(
+              leading: Icon(Icons.hotel_sharp),
+              title: Text("Hostel"),
+              trailing: Text("3"),
+            ),
+          ),
         ),
-        children: [
-          
-        ],
-
-      ),
-    );
+        Padding(
+          padding: EdgeInsets.only(left: 10, right: 10, top: 10),
+          child: Card(
+            elevation: 5,
+            child: ListTile(
+              leading: Icon(Icons.food_bank),
+              title: Text("Mess"),
+              trailing: Text("2"),
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(left: 10,right: 10, top: 10),
+          child: Card(
+            elevation: 5,
+            child: ListTile(
+              leading: Icon(Icons.cut),
+              title: Text("Salon"),
+              trailing: Text("5"),
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(left: 10,right: 10, top: 10),
+          child: Card(
+            elevation: 5,
+            child: ListTile(
+              leading: Icon(Icons.store_mall_directory),
+              title: Text("Stationary"),
+              trailing: Text("4"),
+            ),
+          ),
+        )
+      ],
+    ));
   }
 }

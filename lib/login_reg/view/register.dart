@@ -23,7 +23,7 @@ class Register extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Padding(
-                  padding: EdgeInsets.fromLTRB(30, 30, 30, 0),
+                  padding: EdgeInsets.fromLTRB(20, 30, 20, 0),
                   child: Card(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -48,14 +48,19 @@ class Register extends StatelessWidget {
                                             color: Colors.grey,
                                           )
                                         : CircularProgressIndicator(),
-                                    backgroundImage: NetworkImage(loginController.profileImage),
-                                        
-                                        
+                                    backgroundImage: NetworkImage(
+                                        loginController.profileImage),
+
                                     radius: 40,
                                   ),
                                 ),
-                                textfield("Name", loginController.nameController,
-                                    false, true, Icon(Icons.person), null),
+                                textfield(
+                                    "Name",
+                                    loginController.nameController,
+                                    false,
+                                    true,
+                                    Icon(Icons.person),
+                                    null),
                                 textfield(
                                     "Email",
                                     loginController.emailController,
@@ -77,7 +82,7 @@ class Register extends StatelessWidget {
                                     true,
                                     Icon(Icons.password),
                                     null),
-                                regularbtn("Register", null)
+                                regularbtn("Register", () {})
                               ],
                             ),
                           );

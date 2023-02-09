@@ -155,7 +155,7 @@ regularbtn(String btnText, void Function()? onPressed) {
 //   );
 // }
 
-serviceTab(imageUrl, label) {
+serviceTab(IconData iconData, label) {
   return InkWell(
     onTap: () {
       if (label.toString() == "Hostel") {
@@ -187,16 +187,11 @@ serviceTab(imageUrl, label) {
                       blurRadius: 7,
                       offset: const Offset(0, 2))
                 ]),
-            height: Get.height * 0.2,
-            width: Get.width * 0.4,
+            height: Get.height * 0.15,
+            width: Get.width * 0.35,
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(40),
-              child: imageUrl.toString() == null
-                  ? const CircularProgressIndicator(color: Colors.black)
-                  : Image.network(
-                      imageUrl,
-                      fit: BoxFit.fill,
-                    ),
+              borderRadius: BorderRadius.circular(30),
+              child:  Icon(iconData,size: 50,),
             ),
           ),
           Padding(
