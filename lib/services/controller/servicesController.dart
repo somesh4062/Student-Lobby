@@ -45,3 +45,24 @@ class ServicesController extends GetxController {
     } );
   }
 }
+
+
+// StreamBuilder<QuerySnapshot>(
+//         stream: db.collection('hostel').where("name",isEqualTo: "Avengers Hostel").snapshots(),
+//         builder: (context, snapshot) {
+//           if (!snapshot.hasData) {
+//             return Center(
+//               child: CircularProgressIndicator(),
+//             );
+//           } else
+//             return ListView(
+//               children: snapshot.data!.docs.map((doc) {
+//                 return Card(
+//                   child: ListTile(
+//                     title: Text(doc.get('name')),
+//                   ),
+//                 );
+//               }).toList(),
+//             );
+//         },
+//       ),
