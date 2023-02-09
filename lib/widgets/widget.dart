@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:student_lobby/home/controller/profileController.dart';
+import 'package:student_lobby/user/controller/profileController.dart';
 import 'package:student_lobby/login_reg/controller/loginController.dart';
 import 'package:student_lobby/login_reg/view/register.dart';
 import 'package:student_lobby/services/view/service_reg_View.dart';
@@ -16,29 +16,38 @@ SearchViewController searchViewController = Get.put(SearchViewController());
 
 textfield(labelText, textController, bool type, bool editable, Icon? prefixicon,
     Icon? suffixIcon) {
-  return CustomTextField(labelText: labelText,textController: textController,type: type,editable: editable,prefixIcon: prefixicon,
-    suffixIcon: suffixIcon);
+  return CustomTextField(
+      labelText: labelText,
+      textController: textController,
+      type: type,
+      editable: editable,
+      prefixIcon: prefixicon,
+      suffixIcon: suffixIcon);
 }
 
 class CustomTextField extends StatefulWidget {
-
   String? labelText;
 
   TextEditingController? textController;
 
   bool? type;
 
-  bool? editable; 
+  bool? editable;
 
   Icon? prefixIcon;
 
   Icon? suffixIcon;
 
-  void Function (String)?  onSubmit;
+  void Function(String)? onSubmit;
 
   CustomTextField({
-    this.labelText, this.textController, this.type, this.editable, this.prefixIcon,
-    this.suffixIcon, this.onSubmit,
+    this.labelText,
+    this.textController,
+    this.type,
+    this.editable,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.onSubmit,
     Key? key,
   }) : super(key: key);
 
@@ -47,9 +56,7 @@ class CustomTextField extends StatefulWidget {
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
-
-  ProfileController profileController=Get.put(ProfileController());
-  
+  ProfileController profileController = Get.put(ProfileController());
 
   @override
   Widget build(BuildContext context) {
@@ -57,23 +64,24 @@ class _CustomTextFieldState extends State<CustomTextField> {
       padding: const EdgeInsets.only(left: 30, right: 30, top: 10),
       child: TextFormField(
         onFieldSubmitted: widget.onSubmit,
-        obscureText: widget.type??false,
+        obscureText: widget.type ?? false,
         controller: widget.textController,
         decoration: InputDecoration(
-            prefixIcon:widget.prefixIcon,
+            prefixIcon: widget.prefixIcon,
             suffixIcon: IconButton(
                 onPressed: () {
-                  
                   debugPrint("Pressed");
                   setState(() {
                     // widget.editable=widget.editable??false;
-                    widget.editable=widget.editable!=true?true:false;
+                    widget.editable = widget.editable != true ? true : false;
                   });
+                 // bottomsheet(context);
                 },
-                icon: widget.suffixIcon ?? const Icon(
-                        Icons.stop,
-                        color: Colors.white,
-                      )),
+                icon: widget.suffixIcon ??
+                    const Icon(
+                      Icons.stop,
+                      color: Colors.white,
+                    )),
             border: const OutlineInputBorder(),
             labelText: widget.labelText),
       ),
@@ -81,47 +89,47 @@ class _CustomTextFieldState extends State<CustomTextField> {
   }
 }
 
-regularbtn(String btnText,void Function () ? onPressed) {
+regularbtn(String btnText, void Function()? onPressed) {
   return Padding(
     padding: const EdgeInsets.all(10.0),
     child: ElevatedButton(
-        onPressed: onPressed,//() {
-          // if (btnText.toString() == "Google Login") {
-          //   loginController.signInWithGoogle();
-          // } else if (btnText.toString() == "SignOut") {
-          //   loginController.signOut();
-          // } else if (btnText.toString() == "Register") {
-          //   loginController.register(loginController.emailController.text,
-          //       loginController.password.text);
-          // } else if (btnText.toString() == "Register Service") {
-          //   servicesController.registerService(
-          //       servicesController.hostelNameController.text,
-          //       servicesController.ownerNameController.text,
-          //       servicesController.rentController.text,
-          //       servicesController.emailController.text,
-          //       servicesController.contactController.text,
-          //       servicesController.stateController.text,
-          //       servicesController.cityController.text,
-          //       servicesController.areaController.text,
-          //       servicesController.addressController.text);
-          // } else if (btnText.toString() == "Search") {
-          //   searchViewController
-          //       .searchService(searchViewController.searchController.text);
-          // }
-        // },
-        child: Text(btnText,
-            style: GoogleFonts.montserrat(
-              color: Colors.black,
-                fontSize: 20, fontStyle: FontStyle.normal)),
-        style: ElevatedButton.styleFrom(
-                 backgroundColor: Colors.white,
-                 
-                // side: BorderSide(color: Colors.black, width: 1),
-                 elevation: 08,
-                 minimumSize: const Size(150,50),
-                 shadowColor: Colors.teal,
-                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-               ),),
+      onPressed: onPressed, //() {
+      // if (btnText.toString() == "Google Login") {
+      //   loginController.signInWithGoogle();
+      // } else if (btnText.toString() == "SignOut") {
+      //   loginController.signOut();
+      // } else if (btnText.toString() == "Register") {
+      //   loginController.register(loginController.emailController.text,
+      //       loginController.password.text);
+      // } else if (btnText.toString() == "Register Service") {
+      //   servicesController.registerService(
+      //       servicesController.hostelNameController.text,
+      //       servicesController.ownerNameController.text,
+      //       servicesController.rentController.text,
+      //       servicesController.emailController.text,
+      //       servicesController.contactController.text,
+      //       servicesController.stateController.text,
+      //       servicesController.cityController.text,
+      //       servicesController.areaController.text,
+      //       servicesController.addressController.text);
+      // } else if (btnText.toString() == "Search") {
+      //   searchViewController
+      //       .searchService(searchViewController.searchController.text);
+      // }
+      // },
+      child: Text(btnText,
+          style: GoogleFonts.montserrat(
+              color: Colors.black, fontSize: 20, fontStyle: FontStyle.normal)),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.white,
+
+        // side: BorderSide(color: Colors.black, width: 1),
+        elevation: 08,
+        minimumSize: const Size(150, 50),
+        shadowColor: Colors.teal,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+      ),
+    ),
   );
 }
 
@@ -147,7 +155,7 @@ regularbtn(String btnText,void Function () ? onPressed) {
 //   );
 // }
 
-serviceTab(imageUrl, label) {
+serviceTab(IconData iconData, label) {
   return InkWell(
     onTap: () {
       if (label.toString() == "Hostel") {
@@ -179,16 +187,11 @@ serviceTab(imageUrl, label) {
                       blurRadius: 7,
                       offset: const Offset(0, 2))
                 ]),
-            height: Get.height * 0.2,
-            width: Get.width * 0.4,
+            height: Get.height * 0.15,
+            width: Get.width * 0.35,
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(40),
-              child: imageUrl.toString() == null
-                  ? const CircularProgressIndicator(color: Colors.black)
-                  : Image.network(
-                      imageUrl,
-                      fit: BoxFit.fill,
-                    ),
+              borderRadius: BorderRadius.circular(30),
+              child:  Icon(iconData,size: 50,),
             ),
           ),
           Padding(
@@ -199,6 +202,40 @@ serviceTab(imageUrl, label) {
             ),
           )
         ],
+      ),
+    ),
+  );
+}
+
+bottomsheet(context) {
+  return showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: Get.height * 0.5,
+          child: Center(
+            child: Column(
+              children: [
+                TextFormField(
+                  decoration: InputDecoration(label: Text("Enter")),
+                ),
+                regularbtn("Save", () {})
+              ],
+            ),
+          ),
+        );
+      });
+}
+
+productTab() {
+  return SizedBox(
+    height: Get.height *0.1,
+    child: Card(
+      child: Column(
+        children: const [
+          Text("Product")
+        ],
+
       ),
     ),
   );

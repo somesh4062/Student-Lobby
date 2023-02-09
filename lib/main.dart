@@ -6,6 +6,7 @@ import 'package:student_lobby/home/controller/dashboardController.dart';
 import 'package:student_lobby/home/routes/app_pages.dart';
 import 'package:student_lobby/home/routes/app_routes.dart';
 import 'package:student_lobby/home/view/dashboard.dart';
+import 'package:student_lobby/home/view/searchView.dart';
 import 'package:student_lobby/login_reg/controller/loginController.dart';
 import 'package:student_lobby/login_reg/view/login.dart';
 
@@ -22,11 +23,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return  GetMaterialApp(
       // getPages: AppPages.list,
       // initialRoute: AppRoutes.DASHBOARD,
       debugShowCheckedModeBanner: false,
-      home: StreamBuilder<User?>(
+      home: 
+      // SearchView()
+      
+      
+      StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasError) {

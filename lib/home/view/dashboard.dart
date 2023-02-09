@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:student_lobby/home/controller/dashboardController.dart';
 import 'package:student_lobby/home/view/homepage.dart';
 import 'package:student_lobby/home/view/productsview.dart';
-import 'package:student_lobby/home/view/profileview.dart';
+import 'package:student_lobby/user/view/profileview.dart';
 import 'package:student_lobby/home/view/searchView.dart';
 import 'package:student_lobby/home/view/serviceview.dart';
 import 'package:student_lobby/main.dart';
@@ -41,7 +41,7 @@ class Dashboard extends StatelessWidget {
             actions: [
               IconButton(
                   onPressed: () {
-                    Get.to(() => const SearchView());
+                    Get.to(() => SearchView());
                   },
                   icon: const Icon(
                     CupertinoIcons.search,
