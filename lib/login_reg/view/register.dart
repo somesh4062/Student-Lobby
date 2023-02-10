@@ -49,8 +49,7 @@ class Register extends StatelessWidget {
                                           )
                                         : CircularProgressIndicator(),
                                     backgroundImage: NetworkImage(
-                                        loginController.profileImage),
-
+                                        loginController.profileImage.value),
                                     radius: 40,
                                   ),
                                 ),
@@ -82,7 +81,9 @@ class Register extends StatelessWidget {
                                     true,
                                     Icon(Icons.password),
                                     null),
-                                regularbtn("Register", () {})
+                                regularbtn("Register", () {
+                                  loginController.register(loginController.emailController.text, loginController.passwordController.text);
+                                })
                               ],
                             ),
                           );

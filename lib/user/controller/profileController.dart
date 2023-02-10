@@ -10,8 +10,9 @@ class ProfileController extends GetxController {
   TextEditingController passwordController = TextEditingController();
   RxString name="".obs;
   RxString email="".obs;
-  RxString contact="".obs;
+  RxString phone="".obs;
   RxString pass="".obs;
+  RxString profileImage="".obs;
 
   saveData(String fieldName, String fieldValue){
     
@@ -23,6 +24,19 @@ class ProfileController extends GetxController {
     update();
   }
 
-
+  getData()async{
+    String uid= FirebaseAuth.instance.currentUser?.uid??"";
+    DocumentSnapshot userData = await FirebaseFirestore.instance.collection("Users").doc(uid).get();
+    debugPrint("UID"+uid);
+    nameController.text = userData["name"];
+    name.value = userData["name"];
+    emailController.text = userData["email"];
+    email.value = userData["email"];
+    phonenumberController.text = userData["phone"];
+    phone.value = userData["phone"];
+    profileImage.value = userData["profileImage"];
+    debugPrint(profileImage.value);
+    update();
+  }
 
 }

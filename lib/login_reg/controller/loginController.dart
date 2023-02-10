@@ -18,7 +18,7 @@ class LoginController extends GetxController {
   TextEditingController phonenumberController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  String profileImage = "";
+  RxString profileImage = "".obs;
   // dynamic backgroundImage;
 
   // @override
@@ -53,7 +53,7 @@ class LoginController extends GetxController {
             .collection('Users')
             .doc(userCredential.user?.uid)
             .set({
-          'displayName': userCredential.user?.displayName,
+          'name': userCredential.user?.displayName,
           'uid': userCredential.user?.uid
         });
       }
@@ -70,6 +70,8 @@ class LoginController extends GetxController {
   }
 
   login(email, password) async {
+
+
     try {
       UserCredential auth = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password)
@@ -84,20 +86,32 @@ class LoginController extends GetxController {
       FirebaseFirestore.instance
           .collection('Users')
           .doc(auth.user?.uid)
-          .set({'displayName': auth.user?.displayName, 'uid': auth.user?.uid});
+          .set({'name':nameController.text??auth.user?.displayName, 'uid': auth.user?.uid});
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString());
     }
   }
 
-  register(email, password) {
+  register(email, password) async{
+    Map<String,dynamic> userData ={};
     try {
-      final credential = FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password);
-      credential.whenComplete(() => {
-            Get.to(() => Dashboard()),
-            Fluttertoast.showToast(msg: "Registered Successfully. ")
-          });
+      final credential =await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password)
+          .whenComplete(() => {
+                debugPrint(email + " " + password),
+                Get.to(() => Dashboard()),
+                Fluttertoast.showToast(msg: "Successfully Logged In")
+                
+              })
+          .catchError((e) {
+        Fluttertoast.showToast(msg: e.toString());
+      });
+      userData.addAll({'name':nameController.text?? credential.user?.displayName, 'uid': credential.user?.uid,"phone":phonenumberController.text,"email":emailController.text,"profileImage":profileImage.value});
+
+      FirebaseFirestore.instance
+          .collection('Users')
+          .doc(credential.user?.uid)
+          .set(userData);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         Fluttertoast.showToast(msg: "The password provided is too weak ");
@@ -118,7 +132,7 @@ class LoginController extends GetxController {
     await ref.putFile(File(image.path));
     ref.getDownloadURL().then((value) {
       debugPrint(value);
-      profileImage = value;
+      profileImage.value = value;
       update();
     });
     update();

@@ -10,6 +10,7 @@ class ProfileView extends GetView {
 
   @override
   Widget build(BuildContext context) {
+    profileController.getData();
     return Scaffold(
       body: Center(
         child: Column(
@@ -30,7 +31,7 @@ class ProfileView extends GetView {
               suffixIcon: Icon(Icons.edit),
               onSubmit: (value){
                 profileController.name.value = value;
-                profileController.saveData("Name", value);
+                profileController.saveData("name", value);
                 
               },
             ),
@@ -41,8 +42,8 @@ class ProfileView extends GetView {
               prefixIcon: Icon(Icons.email),
               suffixIcon: Icon(Icons.edit),
               onSubmit: (value){
-                profileController.name.value = value;
-                profileController.saveData("Email", value);
+                profileController.email.value = value;
+                profileController.saveData("email", value);
                 
               },
             ),
@@ -54,7 +55,7 @@ class ProfileView extends GetView {
               suffixIcon: Icon(Icons.edit),
               onSubmit: (value){
                 profileController.name.value = value;
-                profileController.saveData("Contact", value);
+                profileController.saveData("phone", value);
                 
               },
             ),
@@ -69,7 +70,7 @@ class ProfileView extends GetView {
                 suffixIcon: Icon(Icons.edit),
                 onSubmit: (value){
                   profileController.name.value = value;
-                  profileController.saveData("Password", value);
+                  profileController.saveData("password", value);
                 },
               ),
             ),
