@@ -1,10 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:student_lobby/widgets/widget.dart';
 
-class ServiceRegView extends StatelessWidget {
-  const ServiceRegView({Key? key}) : super(key: key);
-  @override
+import '../../widgets/widget.dart';
+
+class SalonServiceRegister extends StatelessWidget {
+  const SalonServiceRegister({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,14 +19,27 @@ class ServiceRegView extends StatelessWidget {
             children: [
               Text(
                 "Service Provider",
-                style: GoogleFonts.montserrat(fontSize: 30),
+                style: GoogleFonts.acme(fontSize: 20),
               ),
-              textfield("Hostel Name", servicesController.hostelNameController,
-                  false, true, Icon(Icons.hotel), null),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: SizedBox(
+                    width: 200,
+                    height: 100,
+                    child: InkWell(
+                      onTap: () {
+                        servicesController.getImage();
+                      },
+                      child: const Card(
+                        elevation: 7,
+                        child: Icon(CupertinoIcons.add),
+                      ),
+                    )),
+              ),
+              textfield("Salon Name", servicesController.nameController, false,
+                  true, Icon(Icons.cut), null),
               textfield("Owner Name", servicesController.ownerNameController,
                   false, true, Icon(Icons.person), null),
-              textfield("Rent Per Month", servicesController.rentController,
-                  false, true, Icon(Icons.currency_rupee), null),
               textfield("Email", servicesController.emailController, false,
                   true, Icon(Icons.email), null),
               textfield("Contact", servicesController.contactController, false,
@@ -46,10 +61,9 @@ class ServiceRegView extends StatelessWidget {
   }
 
   void onPressed() {
-    servicesController.registerService(
-        servicesController.hostelNameController.text,
+    servicesController.registerSalonService(
+        servicesController.nameController.text,
         servicesController.ownerNameController.text,
-        servicesController.rentController.text,
         servicesController.emailController.text,
         servicesController.contactController.text,
         servicesController.stateController.text,

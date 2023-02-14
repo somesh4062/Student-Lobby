@@ -2,10 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:student_lobby/services/view/mess_service_reg_View.dart';
+import 'package:student_lobby/services/view/salon_service_reg_View.dart';
+import 'package:student_lobby/services/view/stat_service_reg_View.dart';
 import 'package:student_lobby/user/controller/profileController.dart';
 import 'package:student_lobby/login_reg/controller/loginController.dart';
 import 'package:student_lobby/login_reg/view/register.dart';
-import 'package:student_lobby/services/view/service_reg_View.dart';
+import 'package:student_lobby/services/view/hostel_service_reg_View.dart';
 
 import '../home/controller/searchViewController.dart';
 import '../services/controller/servicesController.dart';
@@ -75,7 +78,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                     // widget.editable=widget.editable??false;
                     widget.editable = widget.editable != true ? true : false;
                   });
-                 // bottomsheet(context);
+                  // bottomsheet(context);
                 },
                 icon: widget.suffixIcon ??
                     const Icon(
@@ -160,7 +163,7 @@ serviceTab(IconData iconData, label) {
     onTap: () {
       if (label.toString() == "Hostel") {
         servicesController.addressController.clear();
-        servicesController.hostelNameController.clear();
+        servicesController.nameController.clear();
         servicesController.ownerNameController.clear();
         servicesController.rentController.clear();
         servicesController.emailController.clear();
@@ -169,7 +172,13 @@ serviceTab(IconData iconData, label) {
         servicesController.cityController.clear();
         servicesController.areaController.clear();
         servicesController.addressController.clear();
-        Get.to(() => ServiceRegView());
+        Get.to(() => const HostelServiceRegView());
+      } else if (label.toString() == "Mess") {
+        Get.to(() => const MessServiceRegister());
+      } else if (label.toString() == "Salon") {
+        Get.to(() => const SalonServiceRegister());
+      } else if (label.toString() == "Stationery") {
+        Get.to(() => const StationeryRegisterView());
       }
     },
     child: Padding(
@@ -191,7 +200,10 @@ serviceTab(IconData iconData, label) {
             width: Get.width * 0.35,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(30),
-              child:  Icon(iconData,size: 50,),
+              child: Icon(
+                iconData,
+                size: 50,
+              ),
             ),
           ),
           Padding(
@@ -229,13 +241,10 @@ bottomsheet(context) {
 
 productTab() {
   return SizedBox(
-    height: Get.height *0.1,
+    height: Get.height * 0.1,
     child: Card(
       child: Column(
-        children: const [
-          Text("Product")
-        ],
-
+        children: const [Text("Product")],
       ),
     ),
   );
