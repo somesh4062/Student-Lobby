@@ -172,13 +172,13 @@ serviceTab(IconData iconData, label) {
         servicesController.cityController.clear();
         servicesController.areaController.clear();
         servicesController.addressController.clear();
-        Get.to(() => const HostelServiceRegView());
+        Get.to(() => HostelServiceRegView());
       } else if (label.toString() == "Mess") {
-        Get.to(() => const MessServiceRegister());
+        Get.to(() => MessServiceRegister());
       } else if (label.toString() == "Salon") {
-        Get.to(() => const SalonServiceRegister());
+        Get.to(() => SalonServiceRegister());
       } else if (label.toString() == "Stationery") {
-        Get.to(() => const StationeryRegisterView());
+        Get.to(() => StationeryRegisterView());
       }
     },
     child: Padding(

@@ -1,10 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:student_lobby/services/controller/servicesController.dart';
 import 'package:student_lobby/widgets/widget.dart';
 
 class HostelServiceRegView extends StatelessWidget {
-  const HostelServiceRegView({Key? key}) : super(key: key);
+  HostelServiceRegView({Key? key}) : super(key: key);
+  
+  ServicesController servicesController=Get.put(ServicesController());
   @override
   
   Widget build(BuildContext context) {
@@ -29,11 +35,24 @@ class HostelServiceRegView extends StatelessWidget {
                       onTap: () {
                         servicesController.getImage();
                       },
-                      child: const Card(
-                        elevation: 7,
-                        child: Icon(CupertinoIcons.add),
+                      child: GetBuilder<ServicesController>(
+                        init: ServicesController(),
+                        builder: (controller) {
+                          debugPrint("IN C"+controller.uploadImage.value);
+                          return CachedNetworkImage(
+                            imageUrl: controller.uploadImage.value,
+                            errorWidget: (context, url, error) {
+                              Fluttertoast.showToast(msg: error.toString());
+                              return const Card(
+                                elevation: 7,
+                                child: Icon(CupertinoIcons.add)
+                              );
+                            } ,
+                          );
+                        }
                       ),
-                    )),
+                      ),
+                    ),
               ),
               textfield("Hostel Name", servicesController.nameController,
                   false, true, Icon(Icons.hotel), null),

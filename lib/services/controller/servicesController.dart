@@ -1,7 +1,9 @@
 import 'dart:ffi';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -21,7 +23,7 @@ class ServicesController extends GetxController {
   //TextEditingController messNameController = TextEditingController();
   TextEditingController perMonthController = TextEditingController();
   TextEditingController perPlateController = TextEditingController();
-  
+  RxString uploadImage = "".obs;
 
 
 
@@ -36,6 +38,15 @@ class ServicesController extends GetxController {
   getImage() async {
     final serviceImage =
         await ImagePicker.platform.getImage(source: ImageSource.gallery);
+    //profileImage = image as File;
+    final ref = FirebaseStorage.instance.ref().child("profileImages/"+serviceImage!.name.toString());
+    await ref.putFile(File(serviceImage.path));
+    ref.getDownloadURL().then((value) {
+      debugPrint(value);
+      uploadImage.value = value;
+      update();
+    });
+    update();
   }
 
   registerHostelService(name, ownerName, rent, email, contact, state, city,
@@ -52,6 +63,7 @@ class ServicesController extends GetxController {
       "city": city,
       "area": area,
       "address": address,
+      "uploadImage": uploadImage.value,
       "cityAsArray": convertToArray(city)
     };
 
@@ -82,6 +94,7 @@ registerSalonService(name, ownerName, email, contact, state, city,
       "city": city,
       "area": area,
       "address": address,
+      "uploadImage": uploadImage.value,
       "cityAsArray": convertToArray(city)
     };
 
@@ -89,7 +102,7 @@ registerSalonService(name, ownerName, email, contact, state, city,
       FirebaseFirestore.instance
           .collection('Users')
           .doc(FirebaseAuth.instance.currentUser?.uid)
-          .update({"hostel": ref.id});
+          .update({"salon": ref.id});
       Get.back();
       Fluttertoast.showToast(msg: "Registered Successfully");
 
@@ -112,6 +125,7 @@ registerSalonService(name, ownerName, email, contact, state, city,
       "city": city,
       "area": area,
       "address": address,
+      "uploadImage": uploadImage.value,
       "cityAsArray": convertToArray(city)
     };
 
@@ -119,7 +133,7 @@ registerSalonService(name, ownerName, email, contact, state, city,
       FirebaseFirestore.instance
           .collection('Users')
           .doc(FirebaseAuth.instance.currentUser?.uid)
-          .update({"hostel": ref.id});
+          .update({"stationery": ref.id});
       Get.back();
       Fluttertoast.showToast(msg: "Registered Successfully");
 
@@ -147,6 +161,7 @@ registerSalonService(name, ownerName, email, contact, state, city,
       "city": city,
       "area": area,
       "address": address,
+      "uploadImage": uploadImage.value,
       "cityAsArray": convertToArray(city)
     };
 

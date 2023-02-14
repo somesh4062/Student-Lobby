@@ -1,11 +1,15 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:student_lobby/services/controller/servicesController.dart';
 
 import '../../widgets/widget.dart';
 
 class SalonServiceRegister extends StatelessWidget {
-  const SalonServiceRegister({Key? key}) : super(key: key);
+  SalonServiceRegister({Key? key}) : super(key: key);
+  ServicesController servicesController=Get.put(ServicesController());
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +34,23 @@ class SalonServiceRegister extends StatelessWidget {
                       onTap: () {
                         servicesController.getImage();
                       },
-                      child: const Card(
-                        elevation: 7,
-                        child: Icon(CupertinoIcons.add),
+                      child: GetBuilder<ServicesController>(
+                        init: ServicesController(),
+                        builder: (controller) {
+                          debugPrint("IN C"+controller.uploadImage.value);
+                          return CachedNetworkImage(
+                            imageUrl: controller.uploadImage.value,
+                            errorWidget: (context, url, error) {
+                              return const Card(
+                                elevation: 7,
+                                child: Icon(CupertinoIcons.add)
+                              );
+                            } ,
+                          );
+                        }
+                      ),
                       ),
                     )),
-              ),
               textfield("Salon Name", servicesController.nameController, false,
                   true, Icon(Icons.cut), null),
               textfield("Owner Name", servicesController.ownerNameController,
