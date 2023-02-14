@@ -2,8 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:student_lobby/home/controller/searchViewController.dart';
-import 'package:student_lobby/services/controller/servicesController.dart';
-import 'package:student_lobby/widgets/widget.dart';
 
 class ProductListView extends StatelessWidget {
   ProductListView({Key? key});
