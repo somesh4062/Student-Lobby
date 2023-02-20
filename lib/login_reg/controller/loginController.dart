@@ -106,7 +106,7 @@ class LoginController extends GetxController {
           .catchError((e) {
         Fluttertoast.showToast(msg: e.toString());
       });
-      userData.addAll({'name':nameController.text?? credential.user?.displayName, 'uid': credential.user?.uid,"phone":phonenumberController.text,"email":emailController.text,"profileImage":profileImage.value});
+      userData.addAll({'name':nameController.text, 'uid': credential.user?.uid,"phone":phonenumberController.text,"email":emailController.text,"profileImage":profileImage.value});
 
       FirebaseFirestore.instance
           .collection('Users')

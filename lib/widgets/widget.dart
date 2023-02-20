@@ -66,6 +66,12 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return Padding(
       padding: const EdgeInsets.only(left: 30, right: 30, top: 10),
       child: TextFormField(
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please Enter some text';
+          }
+          return null;
+        },
         onFieldSubmitted: widget.onSubmit,
         obscureText: widget.type ?? false,
         controller: widget.textController,

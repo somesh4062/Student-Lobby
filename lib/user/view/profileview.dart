@@ -12,86 +12,88 @@ class ProfileView extends GetView {
   Widget build(BuildContext context) {
     profileController.getData();
     return Scaffold(
-      body: Center(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: InkWell(
-                onTap: () {
-                  loginController.getProfileImage();
-                },
-                child: CircleAvatar(
-                  backgroundImage: 
-                  NetworkImage(
-                    "https://images.pexels.com/photos/1855582/pexels-photo-1855582.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: InkWell(
+                  onTap: () {
+                    loginController.getProfileImage();
+                  },
+                  child: CircleAvatar(
+                    backgroundImage: 
+                    NetworkImage(
+                      "https://images.pexels.com/photos/1855582/pexels-photo-1855582.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+                    ),
+                    radius: 40,
                   ),
-                  radius: 40,
                 ),
               ),
-            ),
-
-            CustomTextField(
-              labelText: "Name",
-              textController: profileController.nameController,
-              editable: true,
-              type: false,
-              prefixIcon: Icon(Icons.person),
-              suffixIcon: Icon(Icons.edit),
-              onSubmit: (value) {
-                profileController.name.value = value;
-                profileController.saveData("name", value);
-                
-              },
-            ),
-            CustomTextField(
-              labelText: "Email",
-              textController: profileController.emailController,
-              editable: true,
-              type: false,
-              prefixIcon: Icon(Icons.email),
-              suffixIcon: Icon(Icons.edit),
-              onSubmit: (value){
-                profileController.email.value = value;
-                profileController.saveData("email", value);
-                
-              },
-            ),
-            CustomTextField(
-              labelText: "Contact",
-              textController: profileController.phonenumberController,
-              editable: true,
-              type: false,
-              prefixIcon: Icon(Icons.phone),
-              suffixIcon: Icon(Icons.edit),
-              onSubmit: (value) {
-                profileController.name.value = value;
-                profileController.saveData("phone", value);
-                
-              },
-            ),
-
-            Padding(
-              padding: const EdgeInsets.only(bottom: 20),
-              child: CustomTextField(
-                labelText: "Password",
-                textController: profileController.passwordController,
+      
+              CustomTextField(
+                labelText: "Name",
+                textController: profileController.nameController,
                 editable: true,
-                type: true,
-                prefixIcon: Icon(Icons.password),
+                type: false,
+                prefixIcon: Icon(Icons.person),
                 suffixIcon: Icon(Icons.edit),
                 onSubmit: (value) {
                   profileController.name.value = value;
-                  profileController.saveData("password", value);
+                  profileController.saveData("name", value);
+                  
                 },
               ),
-            ),
-            regularbtn("Save", () {})
-
-            // textfield("Email", profileController.emailController, false,true,Icon(Icons.email), Icon(Icons.edit)),
-            // textfield("Contact", profileController.phonenumber, false,true,Icon(Icons.phone), Icon(Icons.edit)),
-            // textfield("Password", profileController.password, true, true, Icon(Icons.password), Icon(Icons.edit))
-          ],
+              CustomTextField(
+                labelText: "Email",
+                textController: profileController.emailController,
+                editable: true,
+                type: false,
+                prefixIcon: Icon(Icons.email),
+                suffixIcon: Icon(Icons.edit),
+                onSubmit: (value){
+                  profileController.email.value = value;
+                  profileController.saveData("email", value);
+                  
+                },
+              ),
+              CustomTextField(
+                labelText: "Contact",
+                textController: profileController.phonenumberController,
+                editable: true,
+                type: false,
+                prefixIcon: Icon(Icons.phone),
+                suffixIcon: Icon(Icons.edit),
+                onSubmit: (value) {
+                  profileController.name.value = value;
+                  profileController.saveData("phone", value);
+                  
+                },
+              ),
+      
+              Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: CustomTextField(
+                  labelText: "Password",
+                  textController: profileController.passwordController,
+                  editable: true,
+                  type: true,
+                  prefixIcon: Icon(Icons.password),
+                  suffixIcon: Icon(Icons.edit),
+                  onSubmit: (value) {
+                    profileController.name.value = value;
+                    profileController.saveData("password", value);
+                  },
+                ),
+              ),
+              regularbtn("Save", () {})
+      
+              // textfield("Email", profileController.emailController, false,true,Icon(Icons.email), Icon(Icons.edit)),
+              // textfield("Contact", profileController.phonenumber, false,true,Icon(Icons.phone), Icon(Icons.edit)),
+              // textfield("Password", profileController.password, true, true, Icon(Icons.password), Icon(Icons.edit))
+            ],
+          ),
         ),
       ),
     );
