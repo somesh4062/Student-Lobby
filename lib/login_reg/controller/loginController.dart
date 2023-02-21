@@ -47,14 +47,15 @@ class LoginController extends GetxController {
           .doc(userCredential.user?.uid)
           .get();
 
-      if (!result.exists) ;
+      if (!result.exists)
       {
         FirebaseFirestore.instance
             .collection('Users')
             .doc(userCredential.user?.uid)
             .set({
           'name': userCredential.user?.displayName,
-          'uid': userCredential.user?.uid
+          'uid': userCredential.user?.uid,
+          "mess": [],"hostel": [],"salon": [],"stationery": []
         });
       }
       Get.to(() => Dashboard(), binding: DashboardBinding());
@@ -83,10 +84,10 @@ class LoginController extends GetxController {
           .catchError((e) {
         Fluttertoast.showToast(msg: e.toString());
       });
-      FirebaseFirestore.instance
-          .collection('Users')
-          .doc(auth.user?.uid)
-          .set({'name':nameController.text??auth.user?.displayName, 'uid': auth.user?.uid});
+      // FirebaseFirestore.instance
+      //     .collection('Users')
+      //     .doc(auth.user?.uid)
+      //     .update({'name':nameController.text??auth.user?.displayName, 'uid': auth.user?.uid});
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString());
     }
@@ -106,7 +107,7 @@ class LoginController extends GetxController {
           .catchError((e) {
         Fluttertoast.showToast(msg: e.toString());
       });
-      userData.addAll({'name':nameController.text, 'uid': credential.user?.uid,"phone":phonenumberController.text,"email":emailController.text,"profileImage":profileImage.value});
+      userData.addAll({'name':nameController.text, 'uid': credential.user?.uid,"phone":phonenumberController.text,"email":emailController.text,"profileImage":profileImage.value, "mess": [],"hostel": [],"salon": [],"stationery": []});
 
       FirebaseFirestore.instance
           .collection('Users')
@@ -133,8 +134,10 @@ class LoginController extends GetxController {
     ref.getDownloadURL().then((value) {
       debugPrint(value);
       profileImage.value = value;
+      FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser?.uid).update({"profileImage": value});
       update();
     });
+    
     update();
   }
 }

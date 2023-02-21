@@ -24,8 +24,17 @@ class ServicesController extends GetxController {
   TextEditingController perMonthController = TextEditingController();
   TextEditingController perPlateController = TextEditingController();
   RxString uploadImage = "".obs;
+  RxList<dynamic> userHostel = [].obs;
+  RxList<dynamic> userMess = [].obs;
+  RxList<dynamic> userStationery = [].obs;
+  RxList<dynamic> userSalon = [].obs;
 
 
+  @override
+  void onInit(){
+    super.onInit();
+    getUserServices();
+  }
 
   convertToArray(String str) {
     List arr = [];
@@ -46,6 +55,7 @@ class ServicesController extends GetxController {
       uploadImage.value = value;
       update();
     });
+    
     update();
   }
 
@@ -68,10 +78,11 @@ class ServicesController extends GetxController {
     };
 
     db.collection("hostel").add(hostel).then((ref) {
+      userHostel.add(ref.id);
       FirebaseFirestore.instance
           .collection('Users')
           .doc(FirebaseAuth.instance.currentUser?.uid)
-          .update({"hostel": ref.id});
+          .update({"hostel": userHostel});
       Get.back();
       Fluttertoast.showToast(msg: "Registered Successfully");
 
@@ -79,6 +90,8 @@ class ServicesController extends GetxController {
     }, onError: (obj) {
       debugPrint("Error");
     });
+    getUserServices();
+    update();
   }
 
 registerSalonService(name, ownerName, email, contact, state, city,
@@ -99,10 +112,11 @@ registerSalonService(name, ownerName, email, contact, state, city,
     };
 
     db.collection("salon").add(salon).then((ref) {
+      userSalon.add(ref.id);
       FirebaseFirestore.instance
           .collection('Users')
           .doc(FirebaseAuth.instance.currentUser?.uid)
-          .update({"salon": ref.id});
+          .update({"salon": userSalon});
       Get.back();
       Fluttertoast.showToast(msg: "Registered Successfully");
 
@@ -110,6 +124,8 @@ registerSalonService(name, ownerName, email, contact, state, city,
     }, onError: (obj) {
       debugPrint("Error");
     });
+    getUserServices();
+    update();
   }
 
   registerStationeryService(name, ownerName,  email, contact, state, city,
@@ -130,10 +146,11 @@ registerSalonService(name, ownerName, email, contact, state, city,
     };
 
     db.collection("stationery").add(stationery).then((ref) {
+      userStationery.add(ref.id);
       FirebaseFirestore.instance
           .collection('Users')
           .doc(FirebaseAuth.instance.currentUser?.uid)
-          .update({"stationery": ref.id});
+          .update({"stationery": userStationery});
       Get.back();
       Fluttertoast.showToast(msg: "Registered Successfully");
 
@@ -141,6 +158,8 @@ registerSalonService(name, ownerName, email, contact, state, city,
     }, onError: (obj) {
       debugPrint("Error");
     });
+    getUserServices();
+    update();
   }
 
 
@@ -166,10 +185,11 @@ registerSalonService(name, ownerName, email, contact, state, city,
     };
 
     db.collection("mess").add(mess).then((ref) {
+      userMess.add(ref.id);
       FirebaseFirestore.instance
           .collection('Users')
           .doc(FirebaseAuth.instance.currentUser?.uid)
-          .update({"mess": ref.id});
+          .update({"mess": userMess});
       Get.back();
       Fluttertoast.showToast(msg: "Registered Successfully");
 
@@ -177,6 +197,19 @@ registerSalonService(name, ownerName, email, contact, state, city,
     }, onError: (obj) {
       debugPrint("Error");
     });
+    getUserServices();
+    update();
+  }
+  
+  void getUserServices()async {
+    debugPrint("Called");
+    var result = await FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser?.uid).get();
+    userHostel.value = result["hostel"];
+    userMess.value=result["mess"];
+    userStationery.value=result["stationery"];
+    userSalon.value=result["salon"];
+    debugPrint("Mess Count"+ userMess.length.toString());
+    update();
   }
 }
 

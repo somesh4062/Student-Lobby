@@ -25,7 +25,7 @@ class ProfileView extends GetView {
                   child: CircleAvatar(
                     backgroundImage: 
                     NetworkImage(
-                      "https://images.pexels.com/photos/1855582/pexels-photo-1855582.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+                      loginController.profileImage.value,
                     ),
                     radius: 40,
                   ),
