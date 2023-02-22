@@ -6,9 +6,11 @@ import 'package:student_lobby/home/controller/dashboardController.dart';
 import 'package:student_lobby/home/routes/app_pages.dart';
 import 'package:student_lobby/home/routes/app_routes.dart';
 import 'package:student_lobby/home/view/dashboard.dart';
+import 'package:student_lobby/home/view/registeredServicesView.dart';
 import 'package:student_lobby/home/view/searchView.dart';
 import 'package:student_lobby/login_reg/controller/loginController.dart';
 import 'package:student_lobby/login_reg/view/login.dart';
+import 'package:student_lobby/product/view/addProductView.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,26 +31,26 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: 
       // SearchView()
-      
-      
-      StreamBuilder<User?>(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.hasError) {
-            return Text(snapshot.error.toString());
-          }
-          if (snapshot.connectionState == ConnectionState.active) {
-            if (snapshot.data == null) {
-              return Login();
-            } else {
-              return Dashboard();
-            }
-          }
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
-      ),
+     // RegServicesView()
+     AddProductView() 
+      // StreamBuilder<User?>(
+      //   stream: FirebaseAuth.instance.authStateChanges(),
+      //   builder: (BuildContext context, AsyncSnapshot snapshot) {
+      //     if (snapshot.hasError) {
+      //       return Text(snapshot.error.toString());
+      //     }
+      //     if (snapshot.connectionState == ConnectionState.active) {
+      //       if (snapshot.data == null) {
+      //         return Login();
+      //       } else {
+      //         return Dashboard();
+      //       }
+      //     }
+      //     return const Center(
+      //       child: CircularProgressIndicator(),
+      //     );
+      //   },
+      // ),
     );
   }
 }
