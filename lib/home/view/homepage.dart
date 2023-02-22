@@ -24,7 +24,7 @@ class HomePage extends GetView {
                       elevation: 5,
                       child: InkWell(
                         onTap: () {
-                          Get.to(RegServicesView());
+                          Get.to(()=>RegServicesView(serviceType: ServiceType.HOSTEL,));
                         },
                         child: ListTile(
                           leading: Icon(Icons.hotel_sharp),
@@ -39,10 +39,15 @@ class HomePage extends GetView {
                     padding: EdgeInsets.only(left: 10, right: 10, top: 10),
                     child: Card(
                       elevation: 5,
-                      child: ListTile(
-                        leading: Icon(Icons.food_bank),
-                        title: Text("Mess"),
-                        trailing: Text(controller.userMess.length.toString()),
+                      child: InkWell(
+                        onTap: () {
+                          Get.to(()=>RegServicesView(serviceType: ServiceType.MESS,));
+                        },
+                        child: ListTile(
+                          leading: Icon(Icons.food_bank),
+                          title: Text("Mess"),
+                          trailing: Text(controller.userMess.length.toString()),
+                        ),
                       ),
                     ),
                   ),
@@ -50,10 +55,15 @@ class HomePage extends GetView {
                     padding: EdgeInsets.only(left: 10, right: 10, top: 10),
                     child: Card(
                       elevation: 5,
-                      child: ListTile(
-                        leading: Icon(Icons.cut),
-                        title: Text("Salon"),
-                        trailing: Text(controller.userSalon.length.toString()),
+                      child: InkWell(
+                        onTap: () {
+                          Get.to(()=>RegServicesView(serviceType: ServiceType.SALON,));
+                        },
+                        child: ListTile(
+                          leading: Icon(Icons.cut),
+                          title: Text("Salon"),
+                          trailing: Text(controller.userSalon.length.toString()),
+                        ),
                       ),
                     ),
                   ),
@@ -61,11 +71,16 @@ class HomePage extends GetView {
                     padding: EdgeInsets.only(left: 10, right: 10, top: 10),
                     child: Card(
                       elevation: 5,
-                      child: ListTile(
-                        leading: Icon(Icons.store_mall_directory),
-                        title: Text("Stationary"),
-                        trailing:
-                            Text(controller.userStationery.length.toString()),
+                      child: InkWell(
+                        onTap: () {
+                          Get.to(()=>RegServicesView(serviceType: ServiceType.STATIONERY,));
+                        },
+                        child: ListTile(
+                          leading: Icon(Icons.store_mall_directory),
+                          title: Text("Stationary"),
+                          trailing:
+                              Text(controller.userStationery.length.toString()),
+                        ),
                       ),
                     ),
                   )

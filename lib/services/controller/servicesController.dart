@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:student_lobby/home/view/registeredServicesView.dart';
 
 class ServicesController extends GetxController {
   TextEditingController nameController = TextEditingController();
@@ -209,6 +210,31 @@ registerSalonService(name, ownerName, email, contact, state, city,
     userStationery.value=result["stationery"];
     userSalon.value=result["salon"];
     debugPrint("Mess Count"+ userMess.length.toString());
+    update();
+  }
+
+  void deleteUserService(ServiceType? serviceType,int index)async{
+    switch(serviceType){
+      
+      case ServiceType.HOSTEL:
+        userHostel.removeAt(index);
+        FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser?.uid).update({"hostel":userHostel});
+        break;
+      case ServiceType.MESS:
+        userMess.removeAt(index);
+        FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser?.uid).update({"mess":userMess});
+        break;
+      case ServiceType.SALON:
+        userSalon.removeAt(index);
+        FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser?.uid).update({"salon":userSalon});
+        break;
+      case ServiceType.STATIONERY:
+        userStationery.removeAt(index);
+        FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser?.uid).update({"stationery":userStationery});
+        break;
+      case null:
+        break;
+    }
     update();
   }
 }

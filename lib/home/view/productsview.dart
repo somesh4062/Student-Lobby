@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:student_lobby/product/view/addProductView.dart';
 import 'package:student_lobby/widgets/widget.dart';
 
 class ProductsView extends GetView {
@@ -12,7 +13,9 @@ class ProductsView extends GetView {
               child: Column(
             children: [
               const Padding(padding: EdgeInsets.only(top: 10, )),
-              regularbtn(" + Add Product", () {}),
+              regularbtn(" + Add Product", () {
+                Get.to(()=>AddProductView());
+              }),
               ListView.builder(
                 shrinkWrap: true,
                 scrollDirection: Axis.vertical,
