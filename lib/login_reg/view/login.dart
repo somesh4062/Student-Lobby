@@ -113,7 +113,7 @@ class Login extends StatelessWidget {
                                     ),
                                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                     Text(
-                      "Don't have an Account ?  ",
+                      "Want to Register Service?  ",
                       style: GoogleFonts.montserrat(),
                     ),
                     InkWell(

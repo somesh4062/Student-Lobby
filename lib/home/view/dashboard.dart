@@ -8,7 +8,6 @@ import 'package:student_lobby/home/view/productsview.dart';
 import 'package:student_lobby/user/view/profileview.dart';
 import 'package:student_lobby/home/view/searchView.dart';
 import 'package:student_lobby/home/view/serviceview.dart';
-import 'package:student_lobby/main.dart';
 import 'package:student_lobby/widgets/widget.dart';
 
 class Dashboard extends StatelessWidget {

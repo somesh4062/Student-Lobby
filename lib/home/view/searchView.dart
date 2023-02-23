@@ -18,15 +18,6 @@ class SearchView extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
-          leading: InkWell(
-            onTap: () {
-              Get.back();
-            },
-            child: const Icon(
-              CupertinoIcons.arrow_left,
-              color: Colors.black,
-            ),
-          ),
           bottom: const TabBar(tabs: [
             Tab(
               child: Text(
