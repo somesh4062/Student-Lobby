@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:student_lobby/login_reg/controller/loginController.dart';
 import 'package:student_lobby/widgets/widget.dart';
 
@@ -39,6 +40,13 @@ class Register extends StatelessWidget {
                               child: Column(
                                 //mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
+                                 Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Text(
+                                      "Note : You will be Registered as Service Provider ",
+                                      style: GoogleFonts.acme(),
+                                    ),
+                                  ),
                                   InkWell(
                                     onTap: () {
                                       loginController.getProfileImage();
@@ -86,15 +94,12 @@ class Register extends StatelessWidget {
                                       const Icon(Icons.password),
                                       null),
                                   regularbtn("Register", () {
-
-
-                                    if (_formKey.currentState!.validate()){
+                                    if (_formKey.currentState!.validate()) {
                                       loginController.register(
-                                        loginController.emailController.text,
-                                        loginController
-                                            .passwordController.text);
+                                          loginController.emailController.text,
+                                          loginController
+                                              .passwordController.text);
                                     }
-                                    
                                   })
                                 ],
                               ),

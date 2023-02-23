@@ -11,6 +11,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:student_lobby/home/view/dashboard.dart';
 import 'package:student_lobby/home/view/dashboardbinding.dart';
 import 'package:student_lobby/login_reg/view/login.dart';
+import 'package:student_lobby/student_sec/view/studentDashboard.dart';
 
 class LoginController extends GetxController {
   TextEditingController nameController = TextEditingController();
@@ -78,7 +79,7 @@ class LoginController extends GetxController {
           .signInWithEmailAndPassword(email: email, password: password)
           .whenComplete(() => {
                 debugPrint(email + " " + password),
-                Get.to(() => Dashboard()),
+                Get.to(() => StudentDashboard()),
                 Fluttertoast.showToast(msg: "Successfully Logged In")
               })
           .catchError((e) {

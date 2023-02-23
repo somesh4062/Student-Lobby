@@ -10,7 +10,9 @@ import 'package:student_lobby/home/view/registeredServicesView.dart';
 import 'package:student_lobby/home/view/searchView.dart';
 import 'package:student_lobby/login_reg/controller/loginController.dart';
 import 'package:student_lobby/login_reg/view/login.dart';
-import 'package:student_lobby/product/view/addProductView.dart';
+import 'package:student_lobby/student_sec/view/studentDashboard.dart';
+
+import 'student_sec/controller/studentDashboardController.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,6 +24,8 @@ class MyApp extends StatelessWidget {
    MyApp({Key? key}) : super(key: key);
   LoginController loginController = Get.put(LoginController());
   DashboardController dashboardController = Get.put(DashboardController());
+    StudentDashboardController controller = Get.put(StudentDashboardController());
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -32,25 +36,26 @@ class MyApp extends StatelessWidget {
       home: 
       // SearchView()
      // RegServicesView()
-    //  AddProductView() 
-      StreamBuilder<User?>(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.hasError) {
-            return Text(snapshot.error.toString());
-          }
-          if (snapshot.connectionState == ConnectionState.active) {
-            if (snapshot.data == null) {
-              return Login();
-            } else {
-              return Dashboard();
-            }
-          }
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
-      ),
+    //  AddProductView()
+    StudentDashboard() 
+      // StreamBuilder<User?>(
+      //   stream: FirebaseAuth.instance.authStateChanges(),
+      //   builder: (BuildContext context, AsyncSnapshot snapshot) {
+      //     if (snapshot.hasError) {
+      //       return Text(snapshot.error.toString());
+      //     }
+      //     if (snapshot.connectionState == ConnectionState.active) {
+      //       if (snapshot.data == null) {
+      //         return Login();
+      //       } else {
+      //         return Dashboard();
+      //       }
+      //     }
+      //     return const Center(
+      //       child: CircularProgressIndicator(),
+      //     );
+      //   },
+      // ),
     );
   }
 }
