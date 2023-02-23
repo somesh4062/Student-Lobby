@@ -37,25 +37,40 @@ class MyApp extends StatelessWidget {
       // SearchView()
      // RegServicesView()
     //  AddProductView()
-    StudentDashboard() 
-      // StreamBuilder<User?>(
-      //   stream: FirebaseAuth.instance.authStateChanges(),
-      //   builder: (BuildContext context, AsyncSnapshot snapshot) {
-      //     if (snapshot.hasError) {
-      //       return Text(snapshot.error.toString());
-      //     }
-      //     if (snapshot.connectionState == ConnectionState.active) {
-      //       if (snapshot.data == null) {
-      //         return Login();
-      //       } else {
-      //         return Dashboard();
-      //       }
-      //     }
-      //     return const Center(
-      //       child: CircularProgressIndicator(),
-      //     );
-      //   },
-      // ),
-    );
-  }
+      
+      StreamBuilder<User?>(
+            stream: FirebaseAuth.instance.authStateChanges(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              var isStudent=true;
+              if (snapshot.hasError) {
+                return Text(snapshot.error.toString());
+              }
+              if (snapshot.connectionState == ConnectionState.active) {
+                if (snapshot.data == null) {
+                  
+                  return Login();
+                  
+                } else {
+                  return FutureBuilder<bool>(
+                    future: loginController.isUserStudent(),
+                    initialData: null,
+                    builder: ((context, snapshot) {
+                    if(snapshot.data==true) {
+                      return StudentDashboard();
+                    } else {
+                      return Dashboard();
+                    }
+                  }));               
+                }
+              }
+  
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            },
+          ));
+        }
+      
+    
+  
 }
