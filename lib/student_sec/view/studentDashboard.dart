@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:student_lobby/home/view/searchView.dart';
+import 'package:student_lobby/login_reg/controller/loginController.dart';
+import 'package:student_lobby/login_reg/view/login.dart';
 import 'package:student_lobby/student_sec/controller/studentDashboardController.dart';
 import 'package:student_lobby/student_sec/view/ordersView.dart';
 import 'package:student_lobby/user/view/profileview.dart';
@@ -12,6 +14,7 @@ class StudentDashboard extends StatelessWidget {
   StudentDashboard({Key? key}) : super(key: key);
 
   StudentDashboardController controller = Get.put(StudentDashboardController());
+  LoginController loginController = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +38,9 @@ class StudentDashboard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(10),
               child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  loginController.signOut();
+                },
                 icon: const Icon(Icons.logout),
                 color: Colors.black,
               ),

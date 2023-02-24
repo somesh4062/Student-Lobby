@@ -11,14 +11,16 @@ import 'package:image_picker/image_picker.dart';
 import 'package:student_lobby/home/view/dashboard.dart';
 import 'package:student_lobby/home/view/dashboardbinding.dart';
 import 'package:student_lobby/login_reg/view/login.dart';
+import 'package:student_lobby/login_reg/view/register.dart';
 import 'package:student_lobby/student_sec/view/studentDashboard.dart';
+import 'package:student_lobby/student_sec/view/studentDashboardBinding.dart';
 
 class LoginController extends GetxController {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController phonenumberController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
+  RxBool isStudent=true.obs;
   RxString profileImage = "".obs;
   // dynamic backgroundImage;
 
@@ -56,10 +58,11 @@ class LoginController extends GetxController {
             .set({
           'name': userCredential.user?.displayName,
           'uid': userCredential.user?.uid,
-          "mess": [],"hostel": [],"salon": [],"stationery": []
+          "mess": [],"hostel": [],"salon": [],"stationery": [],
+          "isStudent":true
         });
       }
-      Get.to(() => Dashboard(), binding: DashboardBinding());
+      Get.to(() => StudentDashboard(), binding: StudentDashboardBinding());
     }
 
     debugPrint(userCredential.user?.displayName);
@@ -77,9 +80,14 @@ class LoginController extends GetxController {
     try {
       UserCredential auth = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password)
-          .whenComplete(() => {
-                debugPrint(email + " " + password),
-                Get.to(() => StudentDashboard()),
+          .whenComplete(() async =>  {
+                debugPrint("Pass"+email + " " + password),
+                if(await isUserStudent()){
+                  Get.to(() => StudentDashboard()),
+                }
+                else{
+                  Get.to(()=>Dashboard())
+                },
                 Fluttertoast.showToast(msg: "Successfully Logged In")
               })
           .catchError((e) {
@@ -102,13 +110,14 @@ class LoginController extends GetxController {
           .whenComplete(() => {
                 debugPrint(email + " " + password),
                 Get.to(() => Dashboard()),
-                Fluttertoast.showToast(msg: "Successfully Logged In")
+                //Fluttertoast.showToast(msg: "Successfully Logged In")
                 
               })
           .catchError((e) {
+            Get.off(Register());
         Fluttertoast.showToast(msg: e.toString());
       });
-      userData.addAll({'name':nameController.text, 'uid': credential.user?.uid,"phone":phonenumberController.text,"email":emailController.text,"profileImage":profileImage.value, "mess": [],"hostel": [],"salon": [],"stationery": []});
+      userData.addAll({'name':nameController.text, 'uid': credential.user?.uid,"phone":phonenumberController.text,"email":emailController.text,"profileImage":profileImage.value, "mess": [],"hostel": [],"salon": [],"stationery": [],"isStudent":false});
 
       FirebaseFirestore.instance
           .collection('Users')
@@ -117,12 +126,15 @@ class LoginController extends GetxController {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         Fluttertoast.showToast(msg: "The password provided is too weak ");
+        Get.off(Register());
       } else if (e.code == 'email-already-in-use') {
         Fluttertoast.showToast(
             msg: "The Account already exists for that email. ");
+        Get.off(Register());
       }
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString());
+      Get.off(Register());
     }
   }
 
@@ -140,5 +152,18 @@ class LoginController extends GetxController {
     });
     
     update();
+  }
+
+  Future<bool> isUserStudent()async{
+    
+    var result =await FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser!.uid).get();
+    if(result.data().toString().contains("isStudent")){
+      isStudent.value = result["isStudent"];
+    }
+    debugPrint("Name"+result["name"]+result["isStudent"].toString());
+    
+    debugPrint("called3");
+    update();
+    return isStudent.value;
   }
 }
