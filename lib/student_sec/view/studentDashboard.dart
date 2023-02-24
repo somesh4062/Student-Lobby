@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:student_lobby/home/view/searchView.dart';
+import 'package:student_lobby/student_sec/view/searchView.dart';
 import 'package:student_lobby/login_reg/controller/loginController.dart';
 import 'package:student_lobby/login_reg/view/login.dart';
 import 'package:student_lobby/student_sec/controller/studentDashboardController.dart';

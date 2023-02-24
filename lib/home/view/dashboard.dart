@@ -5,8 +5,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:student_lobby/home/controller/dashboardController.dart';
 import 'package:student_lobby/home/view/homepage.dart';
 import 'package:student_lobby/home/view/productsview.dart';
+import 'package:student_lobby/home/view/receivedOrdersView.dart';
 import 'package:student_lobby/user/view/profileview.dart';
-import 'package:student_lobby/home/view/searchView.dart';
+import 'package:student_lobby/student_sec/view/searchView.dart';
 import 'package:student_lobby/home/view/serviceview.dart';
 import 'package:student_lobby/widgets/widget.dart';
 
@@ -40,10 +41,11 @@ class Dashboard extends StatelessWidget {
             actions: [
               IconButton(
                   onPressed: () {
-                    Get.to(() => SearchView());
+                   // Get.to(() => SearchView());
+                   Get.to(()=> ReceivedOrdersView());
                   },
                   icon: const Icon(
-                    CupertinoIcons.search,
+                    CupertinoIcons.bag,
                     color: Colors.black,
                   )),
               Padding(

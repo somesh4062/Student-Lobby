@@ -7,7 +7,7 @@ import 'package:student_lobby/home/routes/app_pages.dart';
 import 'package:student_lobby/home/routes/app_routes.dart';
 import 'package:student_lobby/home/view/dashboard.dart';
 import 'package:student_lobby/home/view/registeredServicesView.dart';
-import 'package:student_lobby/home/view/searchView.dart';
+import 'package:student_lobby/student_sec/view/searchView.dart';
 import 'package:student_lobby/login_reg/controller/loginController.dart';
 import 'package:student_lobby/login_reg/view/login.dart';
 import 'package:student_lobby/student_sec/view/studentDashboard.dart';
