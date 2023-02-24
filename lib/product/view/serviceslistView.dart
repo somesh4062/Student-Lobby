@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:student_lobby/home/controller/searchViewController.dart';
 
-class ProductListView extends StatelessWidget {
-  ProductListView({Key? key});
+class ServicesListView extends StatelessWidget {
+  ServicesListView({Key? key});
   var db = FirebaseFirestore.instance;
   SearchViewController servicesController = Get.put(SearchViewController());
 
