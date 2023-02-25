@@ -128,7 +128,7 @@ regularbtn(String btnText, void Function()? onPressed) {
       // },
       child: Text(btnText,
           style: GoogleFonts.montserrat(
-              color: Colors.black, fontSize: 20, fontStyle: FontStyle.normal)),
+              color: Colors.black, fontSize: 15, fontStyle: FontStyle.normal)),
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.white,
 
@@ -136,7 +136,7 @@ regularbtn(String btnText, void Function()? onPressed) {
         elevation: 08,
         minimumSize: const Size(150, 50),
         shadowColor: Colors.teal,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
       ),
     ),
   );
