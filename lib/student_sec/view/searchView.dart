@@ -72,7 +72,7 @@ class SearchView extends StatelessWidget {
               //productTab(),
               Text("MEss"),
               Text("Hostel"),
-              ProductsListView()
+              ProductsListView(),
             ],
           ),
         )),

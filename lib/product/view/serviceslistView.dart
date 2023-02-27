@@ -27,6 +27,7 @@ class ServicesListView extends StatelessWidget {
                   children: snapshot.data!.docs.map((doc) {
                     return Card(
                       child: ListTile(
+                        
                          trailing: IconButton(onPressed: () {}, icon: Icon(Icons.arrow_right)),
                         // visualDensity: VisualDensity(vertical: 5),
                         // minVerticalPadding: double.nan,
@@ -35,6 +36,7 @@ class ServicesListView extends StatelessWidget {
                         title: Text(doc["name"]),
                         isThreeLine: true,
                         subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text("Contact Number" +doc["contact"].toString()),
                             Text("Email :"+doc["email"]),
