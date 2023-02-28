@@ -21,6 +21,7 @@ textfield(labelText, textController, bool type, bool editable, Icon? prefixicon,
     Icon? suffixIcon) {
   return CustomTextField(
       labelText: labelText,
+      
       textController: textController,
       type: type,
       editable: editable,
@@ -66,6 +67,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return Padding(
       padding: const EdgeInsets.only(left: 30, right: 30, top: 10),
       child: TextFormField(
+        style: GoogleFonts.acme(),
         validator: (value) {
           if (value == null || value.isEmpty) {
             return 'Please Enter some text';
@@ -127,7 +129,7 @@ regularbtn(String btnText, void Function()? onPressed) {
       // }
       // },
       child: Text(btnText,
-          style: GoogleFonts.montserrat(
+          style: GoogleFonts.acme(
               color: Colors.black, fontSize: 15, fontStyle: FontStyle.normal)),
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.white,
@@ -225,33 +227,33 @@ serviceTab(IconData iconData, label) {
   );
 }
 
-bottomsheet(context) {
-  return showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          height: Get.height * 0.5,
-          child: Center(
-            child: Column(
-              children: [
-                TextFormField(
-                  decoration: InputDecoration(label: Text("Enter")),
-                ),
-                regularbtn("Save", () {})
-              ],
-            ),
-          ),
-        );
-      });
-}
+// bottomsheet(context) {
+//   return showModalBottomSheet(
+//       context: context,
+//       builder: (BuildContext context) {
+//         return Container(
+//           height: Get.height * 0.5,
+//           child: Center(
+//             child: Column(
+//               children: [
+//                 TextFormField(
+//                   decoration: InputDecoration(label: Text("Enter")),
+//                 ),
+//                 regularbtn("Save", () {})
+//               ],
+//             ),
+//           ),
+//         );
+//       });
+// }
 
-productTab() {
-  return SizedBox(
-    height: Get.height * 0.1,
-    child: Card(
-      child: Column(
-        children: const [Text("Product")],
-      ),
-    ),
-  );
-}
+// productTab() {
+//   return SizedBox(
+//     height: Get.height * 0.1,
+//     child: Card(
+//       child: Column(
+//         children: const [Text("Product")],
+//       ),
+//     ),
+//   );
+// }

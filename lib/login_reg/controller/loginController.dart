@@ -20,7 +20,7 @@ class LoginController extends GetxController {
   TextEditingController emailController = TextEditingController();
   TextEditingController phonenumberController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  RxBool isStudent=true.obs;
+  RxBool isStudent = true.obs;
   RxString profileImage = "".obs;
   // dynamic backgroundImage;
 
@@ -50,19 +50,22 @@ class LoginController extends GetxController {
           .doc(userCredential.user?.uid)
           .get();
 
-      if (!result.exists)
-      {
+      if (!result.exists) {
         FirebaseFirestore.instance
             .collection('Users')
             .doc(userCredential.user?.uid)
             .set({
           'name': userCredential.user?.displayName,
           'uid': userCredential.user?.uid,
-          "mess": [],"hostel": [],"salon": [],"stationery": [],
-          "isStudent":true
+          "mess": [],
+          "hostel": [],
+          "salon": [],
+          "stationery": [],
+          "isStudent": true
         });
       }
       Get.to(() => StudentDashboard(), binding: StudentDashboardBinding());
+      //Get.toEnd(() => StudentDashboard());
     }
 
     debugPrint(userCredential.user?.displayName);
@@ -75,19 +78,21 @@ class LoginController extends GetxController {
   }
 
   login(email, password) async {
-
-
     try {
       UserCredential auth = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password)
-          .whenComplete(() async =>  {
-                debugPrint("Pass"+email + " " + password),
-                if(await isUserStudent()){
-                  Get.to(() => StudentDashboard()),
-                }
-                else{
-                  Get.to(()=>Dashboard())
-                },
+          .whenComplete(() async => {
+                debugPrint("Pass" + email + " " + password),
+                if (await isUserStudent())
+                  {
+                    //Get.to(() => StudentDashboard()),
+                    Get.toEnd(() => StudentDashboard())
+                  }
+                else
+                  {
+                    Get.toEnd(() => Dashboard()),
+                    //Get.to(()=>Dashboard())
+                  },
                 Fluttertoast.showToast(msg: "Successfully Logged In")
               })
           .catchError((e) {
@@ -102,22 +107,32 @@ class LoginController extends GetxController {
     }
   }
 
-  register(email, password) async{
-    Map<String,dynamic> userData ={};
+  register(email, password) async {
+    Map<String, dynamic> userData = {};
     try {
-      final credential =await FirebaseAuth.instance
+      final credential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password)
           .whenComplete(() => {
                 debugPrint(email + " " + password),
                 Get.to(() => Dashboard()),
                 //Fluttertoast.showToast(msg: "Successfully Logged In")
-                
               })
           .catchError((e) {
-            Get.off(Register());
+        Get.off(Register());
         Fluttertoast.showToast(msg: e.toString());
       });
-      userData.addAll({'name':nameController.text, 'uid': credential.user?.uid,"phone":phonenumberController.text,"email":emailController.text,"profileImage":profileImage.value, "mess": [],"hostel": [],"salon": [],"stationery": [],"isStudent":false});
+      userData.addAll({
+        'name': nameController.text,
+        'uid': credential.user?.uid,
+        "phone": phonenumberController.text,
+        "email": emailController.text,
+        "profileImage": profileImage.value,
+        "mess": [],
+        "hostel": [],
+        "salon": [],
+        "stationery": [],
+        "isStudent": false
+      });
 
       FirebaseFirestore.instance
           .collection('Users')
@@ -142,26 +157,33 @@ class LoginController extends GetxController {
     final image =
         await ImagePicker.platform.getImage(source: ImageSource.gallery);
     //profileImage = image as File;
-    final ref = FirebaseStorage.instance.ref().child("profileImages/"+image!.name.toString());
+    final ref = FirebaseStorage.instance
+        .ref()
+        .child("profileImages/" + image!.name.toString());
     await ref.putFile(File(image.path));
     ref.getDownloadURL().then((value) {
       debugPrint(value);
       profileImage.value = value;
-      FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser?.uid).update({"profileImage": value});
+      FirebaseFirestore.instance
+          .collection("Users")
+          .doc(FirebaseAuth.instance.currentUser?.uid)
+          .update({"profileImage": value});
       update();
     });
-    
+
     update();
   }
 
-  Future<bool> isUserStudent()async{
-    
-    var result =await FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser!.uid).get();
-    if(result.data().toString().contains("isStudent")){
+  Future<bool> isUserStudent() async {
+    var result = await FirebaseFirestore.instance
+        .collection("Users")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    if (result.data().toString().contains("isStudent")) {
       isStudent.value = result["isStudent"];
     }
-    debugPrint("Name"+result["name"]+result["isStudent"].toString());
-    
+    debugPrint("Name" + result["name"] + result["isStudent"].toString());
+
     debugPrint("called3");
     update();
     return isStudent.value;

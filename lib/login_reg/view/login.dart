@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:student_lobby/login_reg/controller/loginController.dart';
 import 'package:student_lobby/login_reg/view/register.dart';
+import 'package:student_lobby/login_reg/view/sellerLoginView.dart';
+import 'package:student_lobby/login_reg/view/studentLoginView.dart';
 import 'package:student_lobby/widgets/widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -47,7 +49,8 @@ class Login extends StatelessWidget {
 
                             InkWell(
                               onTap: () {
-                                loginController.signInWithGoogle();
+                                Get.to(() => StudentLoginView());
+                                //loginController.signInWithGoogle();
                               },
                               child: Padding(
                                 padding:
@@ -66,7 +69,8 @@ class Login extends StatelessWidget {
                                           //CachedNetworkImage(imageUrl: "https://cdn.pixabay.com/photo/2022/01/11/21/18/icon-6931522_1280.png"),
                                           ),
                                       Padding(
-                                        padding: const EdgeInsets.only(bottom: 10),
+                                        padding:
+                                            const EdgeInsets.only(bottom: 10),
                                         child: Text(
                                           "As Student",
                                           style: GoogleFonts.acme(),
@@ -79,7 +83,7 @@ class Login extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () {
-                                Get.to(Register());
+                                Get.to(() => SellerLoginView());
                               },
                               child: Padding(
                                 padding:
@@ -98,7 +102,8 @@ class Login extends StatelessWidget {
                                           //CachedNetworkImage(imageUrl: "https://cdn.pixabay.com/photo/2022/01/11/21/18/icon-6931522_1280.png"),
                                           ),
                                       Padding(
-                                        padding: const EdgeInsets.only(bottom: 10),
+                                        padding:
+                                            const EdgeInsets.only(bottom: 10),
                                         child: Text(
                                           "As Service Provider",
                                           style: GoogleFonts.acme(),

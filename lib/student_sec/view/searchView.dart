@@ -10,7 +10,7 @@ import 'package:student_lobby/widgets/widget.dart';
 
 class SearchView extends StatelessWidget {
   //TextEditingController searchTxtController =TextEditingController();
-  SearchViewController searchViewController=Get.put(SearchViewController());
+  SearchViewController searchViewController = Get.put(SearchViewController());
   SearchView({Key? key}) : super(key: key);
 
   @override
@@ -48,16 +48,22 @@ class SearchView extends StatelessWidget {
             Expanded(
                 child: Padding(
               padding: const EdgeInsets.only(
-                  left: 60, right: 30, top: 10, bottom: 10),
+                  left: 30, right: 30, top: 10, bottom: 10),
               child: TextFormField(
+                //controller: searchViewController.searchController,
                 onChanged: (searchText) {
-                  searchViewController.searchText.value=searchText;
+                  searchViewController.searchText.value = searchText;
                   searchViewController.update();
-                  debugPrint("ST"+searchViewController.searchText.value);
+                  debugPrint("ST" + searchViewController.searchText.value);
                 },
                 decoration: InputDecoration(
                   suffixIconColor: Colors.black,
-                  suffixIcon: Icon(Icons.close),
+                  suffixIcon: InkWell(
+                      onTap: () {
+                        searchViewController.searchController.clear();
+                        searchViewController.update();
+                      },
+                      child: Icon(Icons.close)),
                   hintText: "Search",
                 ),
               ),
@@ -69,11 +75,19 @@ class SearchView extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: TabBarView(
             children: [
-              ServicesListView(serviceType: ServiceType.HOSTEL,),
+              ServicesListView(
+                serviceType: ServiceType.HOSTEL,
+              ),
               //productTab(),
-              ServicesListView(serviceType: ServiceType.MESS,),
-              ProductsListView(serviceType: ServiceType.SALON,),
-              ProductsListView(serviceType: ServiceType.STATIONERY,),
+              ServicesListView(
+                serviceType: ServiceType.MESS,
+              ),
+              ProductsListView(
+                serviceType: ServiceType.SALON,
+              ),
+              ProductsListView(
+                serviceType: ServiceType.STATIONERY,
+              ),
             ],
           ),
         )),

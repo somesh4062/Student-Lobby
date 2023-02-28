@@ -25,7 +25,7 @@ class StudentDashboard extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             child: const CircleAvatar(
               backgroundImage: CachedNetworkImageProvider(
-                  "https://images.pexels.com/photos/1855582/pexels-photo-1855582.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"),
+                  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"),
             ),
           ),
           backgroundColor: Colors.white,
