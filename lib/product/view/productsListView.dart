@@ -27,7 +27,7 @@ class ProductsListView extends StatelessWidget {
               onPressed: () {
                 Get.to(() => const StuProductList());
               },
-              child: Text("Buy")),
+              child: Text("Explore")),
         ),
       );
     });
