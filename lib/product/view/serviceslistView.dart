@@ -3,9 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:student_lobby/home/controller/searchViewController.dart';
+import 'package:student_lobby/home/view/registeredServicesView.dart';
 
 class ServicesListView extends StatelessWidget {
-  ServicesListView({Key? key});
+  ServiceType? serviceType=ServiceType.HOSTEL;
+
+  ServicesListView({Key? key,this.serviceType});
   var db = FirebaseFirestore.instance;
   SearchViewController servicesController = Get.put(SearchViewController());
 
@@ -14,9 +17,10 @@ class ServicesListView extends StatelessWidget {
     return GetBuilder<SearchViewController>(
       init: SearchViewController(),
       builder: (controller) {
+        String service = serviceType==ServiceType.HOSTEL?"hostel":"mess";
         //debugPrint("ST"+controller.searchText.value);
         return StreamBuilder<QuerySnapshot>(
-            stream: db.collection('hostel').where("cityAsArray",arrayContains: controller.searchText.value).snapshots(),
+            stream: db.collection(service).where("cityAsArray",arrayContains: controller.searchText.value).snapshots(),
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
                 return const  Center(
@@ -39,7 +43,7 @@ class ServicesListView extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text("Contact Number" +doc["contact"].toString()),
-                            Text("Email :"+doc["email"]),
+                            serviceType==ServiceType.HOSTEL?Text("Rent :"+doc["rent"]):Text("Per Month :"+doc["perMonth"]),
                             Text("Address "+doc["address"]),
                             Text("City :"+doc["city"]),
                           ],
@@ -47,6 +51,7 @@ class ServicesListView extends StatelessWidget {
                         leading: SizedBox(
                           child: CachedNetworkImage(
                             imageUrl: doc.get("uploadImage")??"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.UY0vt0ARKbq0EsA_-C4nVQHaE7%26pid%3DApi&f=1&ipt=f09a282b4a93aa83d743340b02074ea066a23920ab070767301bde447ccadad1&ipo=images",
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),

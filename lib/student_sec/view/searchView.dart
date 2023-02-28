@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:student_lobby/home/controller/searchViewController.dart';
+import 'package:student_lobby/home/view/registeredServicesView.dart';
 import 'package:student_lobby/product/view/productsListView.dart';
 import 'package:student_lobby/product/view/serviceslistView.dart';
 import 'package:student_lobby/widgets/widget.dart';
@@ -68,11 +69,11 @@ class SearchView extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: TabBarView(
             children: [
-              ServicesListView(),
+              ServicesListView(serviceType: ServiceType.HOSTEL,),
               //productTab(),
-              Text("MEss"),
-              Text("Hostel"),
-              ProductsListView(),
+              ServicesListView(serviceType: ServiceType.MESS,),
+              ProductsListView(serviceType: ServiceType.SALON,),
+              ProductsListView(serviceType: ServiceType.STATIONERY,),
             ],
           ),
         )),

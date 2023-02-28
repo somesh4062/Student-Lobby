@@ -4,7 +4,10 @@ import 'package:student_lobby/product/controller/productController.dart';
 import 'package:student_lobby/widgets/widget.dart';
 
 class ConfirmOrderView extends StatelessWidget {
-   ConfirmOrderView({Key? key}) : super(key: key);
+  String storeId;
+  String productId;
+  Map<String,dynamic> productData;
+  ConfirmOrderView({Key? key,required this.storeId,required this.productId,required this.productData}) : super(key: key);
 
   ProductController productController = Get.put(ProductController());
 
@@ -32,6 +35,11 @@ class ConfirmOrderView extends StatelessWidget {
                 textController: productController.nameController,
               ),
               CustomTextField(
+                labelText: "Contact",
+                prefixIcon: Icon(Icons.abc),
+                textController: productController.contactController,
+              ),
+              CustomTextField(
                 labelText: "Address",
                 prefixIcon: Icon(Icons.area_chart),
                 textController: productController.addressController,
@@ -47,7 +55,9 @@ class ConfirmOrderView extends StatelessWidget {
                 prefixIcon: Icon(Icons.location_pin),
                 textController: productController.pincodeController,
               ),
-              regularbtn("Place Order", () {})
+              regularbtn("Place Order", () {
+                productController.placeOrder(productId,storeId,productData);
+              })
             ],
           ),
         )),

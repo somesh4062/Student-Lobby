@@ -1,35 +1,55 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:student_lobby/home/view/registeredServicesView.dart';
 import 'package:student_lobby/student_sec/view/stuproductslist.dart';
 
 class ProductsListView extends StatelessWidget {
-  const ProductsListView({Key? key}) : super(key: key);
+  ServiceType? serviceType=ServiceType.SALON;
+  ProductsListView({Key? key,this.serviceType}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(itemBuilder: (context, index) {
-      return Card(
+    String service = serviceType==ServiceType.SALON?"salon":"stationery";
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance.collection(service).snapshots(),
+      
+      builder: (context, snapshot) {
+      if(snapshot.connectionState!=ConnectionState.active){
+        return const Center(
+        child: CircularProgressIndicator(),
+        );
+      }
+     else{
+      return ListView( 
+        children: snapshot.data!.docs.map((doc) {
+        return Card(
         elevation: 4,
         child: ListTile(
           isThreeLine: 
           true,
           leading: CachedNetworkImage(
-              imageUrl:
-                  "https://cdn.pixabay.com/photo/2016/11/23/18/14/fountain-pen-1854169_1280.jpg"),
-          title: const Text("Stationery Name"),
+              imageUrl: doc.data().toString().contains("uploadImage")?doc["uploadImage"]:
+                  "https://cdn.pixabay.com/photo/2016/11/23/18/14/fountain-pen-1854169_1280.jpg",
+              errorWidget:(context, url, error) =>  CachedNetworkImage(imageUrl: "https://cdn.pixabay.com/photo/2016/11/23/18/14/fountain-pen-1854169_1280.jpg"),        
+          ),
+          title: Text(doc["name"]),
           subtitle: Column(
             // mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [Text("Area : Narhe  "), Text("City : Pune ")],
+            children: [Text("Area : "+doc["area"]), Text("City : "+doc["city"])],
           ),
           trailing: ElevatedButton(
               onPressed: () {
-                Get.to(() => const StuProductList());
+                Get.to(() => StuProductList(docId: doc.id));
               },
-              child: Text("Buy")),
+              child: Text("Explore")),
         ),
       );
+      }).toList()
+      );
+     }
     });
   }
 }
