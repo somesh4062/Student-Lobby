@@ -8,9 +8,9 @@ class ReceivedOrdersView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection("orders").where("userId",isEqualTo: FirebaseAuth.instance.currentUser?.uid).snapshots(),
+    return Scaffold(
+      body: StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance.collection("orders").snapshots(),
         builder: (context,snapshot) {
         if(snapshot.connectionState!=ConnectionState.active){
             return const Center(
