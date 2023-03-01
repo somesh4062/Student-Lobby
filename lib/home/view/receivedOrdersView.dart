@@ -2,15 +2,17 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:student_lobby/services/controller/servicesController.dart';
 
 class ReceivedOrdersView extends StatelessWidget {
-  const ReceivedOrdersView({Key? key}) :super(key: key);
-
+  ReceivedOrdersView({Key? key}) :super(key: key);
+  ServicesController servicesController =Get.put(ServicesController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection("orders").snapshots(),
+      body: FutureBuilder<List<QueryDocumentSnapshot>>(
+        future: servicesController.getOrders(),
         builder: (context,snapshot) {
         if(snapshot.connectionState!=ConnectionState.active){
             return const Center(
@@ -19,7 +21,7 @@ class ReceivedOrdersView extends StatelessWidget {
           }
           else{
             return ListView(
-              children: snapshot.data!.docs.map((doc) {
+              children: snapshot.data!.map((doc) {
                 return Card(
               elevation: 4,
               child: ListTile(

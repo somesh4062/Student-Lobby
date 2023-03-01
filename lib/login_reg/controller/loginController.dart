@@ -74,7 +74,8 @@ class LoginController extends GetxController {
   signOut() async {
     await GoogleSignIn().signOut();
     FirebaseAuth.instance.signOut();
-    Get.to(() => Login());
+    Get.delete();
+    Get.offAll(() => Login());
   }
 
   login(email, password) async {
@@ -86,11 +87,11 @@ class LoginController extends GetxController {
                 if (await isUserStudent())
                   {
                     //Get.to(() => StudentDashboard()),
-                    Get.toEnd(() => StudentDashboard())
+                    Get.offAll(() => StudentDashboard())
                   }
                 else
                   {
-                    Get.toEnd(() => Dashboard()),
+                    Get.offAll(() => Dashboard()),
                     //Get.to(()=>Dashboard())
                   },
                 Fluttertoast.showToast(msg: "Successfully Logged In")

@@ -237,6 +237,17 @@ registerSalonService(name, ownerName, email, contact, state, city,
     }
     update();
   }
+
+  Future<List<QueryDocumentSnapshot>> getOrders() async{
+    var data =await FirebaseFirestore.instance.collection("orders").get();
+    var selectedOrders = <QueryDocumentSnapshot>[];
+    for (int i = 0; i< data.docs.length;i++){
+      if(userSalon.contains(data.docs[i]["storeId"])|| userStationery.contains(data.docs[i]["storeId"])){
+        selectedOrders.add(data.docs[i]);
+      }
+    }
+    return selectedOrders;
+  }
 }
 
 
