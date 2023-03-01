@@ -83,6 +83,7 @@ class ProductController extends GetxController {
   }
 
   addProduct() async{
+    
     if (dropDownValue.isEmpty || dropDownValue == "Select Store") {
       Fluttertoast.showToast(msg: "Please select a store");
     } else {

@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:student_lobby/home/view/statsView.dart';
 import 'package:student_lobby/product/controller/productController.dart';
 import 'package:student_lobby/product/view/addProductView.dart';
 import 'package:student_lobby/widgets/widget.dart';
@@ -19,10 +20,23 @@ class ProductsView extends GetView {
               child: Center(
                   child: Column(
                 children: [
-                  const Padding(padding: EdgeInsets.only(top: 10, )),
-                  regularbtn(" + Add Product", () {
-                    Get.to(()=>AddProductView());
-                  }),
+
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      //crossAxisAlignment: CrossAxisAlignment.center,
+children: [
+                    regularbtn(" + Add Product", () {
+                      Get.to(()=>AddProductView());
+                    }),
+                    regularbtn(" Growth", () {
+                      Get.to(()=> StatsView());
+                    }),
+],
+                    ),
+                  ),
+                  
                   StreamBuilder<QuerySnapshot>(
                     stream: FirebaseFirestore.instance.collection("products").where("user",isEqualTo: FirebaseAuth.instance.currentUser?.uid).snapshots(),
                   builder: (context, snapshot) {

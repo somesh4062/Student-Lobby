@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:student_lobby/services/view/mess_service_reg_View.dart';
@@ -68,12 +71,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
       padding: const EdgeInsets.only(left: 30, right: 30, top: 10),
       child: TextFormField(
         style: GoogleFonts.acme(),
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return 'Please Enter some text';
-          }
-          return null;
-        },
+        validator: MultiValidator([
+          RequiredValidator(errorText: "Fill the details")
+        ]),
         onFieldSubmitted: widget.onSubmit,
         obscureText: widget.type ?? false,
         controller: widget.textController,

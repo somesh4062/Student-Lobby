@@ -1,12 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:student_lobby/home/controller/searchViewController.dart';
 import 'package:student_lobby/home/view/registeredServicesView.dart';
 import 'package:student_lobby/product/view/productsListView.dart';
 import 'package:student_lobby/product/view/serviceslistView.dart';
-import 'package:student_lobby/widgets/widget.dart';
 
 class SearchView extends StatelessWidget {
   //TextEditingController searchTxtController =TextEditingController();
