@@ -3,11 +3,16 @@ import 'package:get/get.dart';
 import 'package:student_lobby/product/controller/productController.dart';
 import 'package:student_lobby/widgets/widget.dart';
 
-class ConfirmOrderView extends StatelessWidget {
+class StatOrderView extends StatelessWidget {
   String storeId;
   String productId;
-  Map<String,dynamic> productData;
-  ConfirmOrderView({Key? key,required this.storeId,required this.productId,required this.productData}) : super(key: key);
+  Map<String, dynamic> productData;
+  StatOrderView(
+      {Key? key,
+      required this.storeId,
+      required this.productId,
+      required this.productData})
+      : super(key: key);
 
   ProductController productController = Get.put(ProductController());
 
@@ -20,7 +25,10 @@ class ConfirmOrderView extends StatelessWidget {
           onPressed: () {
             Get.back();
           },
-          icon: const Icon(Icons.arrow_back,color: Colors.black,),
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
         ),
       ),
       body: Center(
@@ -28,7 +36,6 @@ class ConfirmOrderView extends StatelessWidget {
             child: SingleChildScrollView(
           child: Column(
             children: [
-              
               CustomTextField(
                 labelText: "FullName",
                 prefixIcon: Icon(Icons.abc),
@@ -48,7 +55,6 @@ class ConfirmOrderView extends StatelessWidget {
                 labelText: "City",
                 prefixIcon: Icon(Icons.location_city),
                 textController: productController.cityController,
-
               ),
               CustomTextField(
                 labelText: "Pincode",
@@ -56,7 +62,7 @@ class ConfirmOrderView extends StatelessWidget {
                 textController: productController.pincodeController,
               ),
               regularbtn("Place Order", () {
-                productController.placeOrder(productId,storeId,productData);
+                productController.placeOrder(productId, storeId, productData);
               })
             ],
           ),

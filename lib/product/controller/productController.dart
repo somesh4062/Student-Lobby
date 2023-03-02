@@ -16,11 +16,18 @@ class ProductController extends GetxController {
   TextEditingController descController = TextEditingController();
   TextEditingController priceController = TextEditingController();
   TextEditingController contactController = TextEditingController();
-  TextEditingController fullNameController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController cityController = TextEditingController();
   TextEditingController pincodeController = TextEditingController();
 
+  DateTime dateTime = DateTime(
+    DateTime.now().year,
+    DateTime.now().month,
+    DateTime.now().day,
+    DateTime.now().hour
+    
+
+  );
   ServicesController servicesController = Get.put(ServicesController());
   String dropDownValue = "Select Store";
   ServiceType selectedType = ServiceType.STATIONERY;
@@ -56,12 +63,11 @@ class ProductController extends GetxController {
   getUserServices(ServiceType? serviceType) async {
     if (serviceType == ServiceType.SALON) {
       for (int i = 0; i < servicesController.userSalon.length; i++) {
-        
         var tempData = await db
             .collection("salon")
             .doc(servicesController.userSalon[i])
             .get();
-        debugPrint("Salon"+tempData["name"]);
+        debugPrint("Salon" + tempData["name"]);
         data.add(tempData["name"]);
       }
     } else {
@@ -82,12 +88,14 @@ class ProductController extends GetxController {
     update();
   }
 
-  addProduct() async{
-    
+  addProduct() async {
     if (dropDownValue.isEmpty || dropDownValue == "Select Store") {
       Fluttertoast.showToast(msg: "Please select a store");
     } else {
-      QuerySnapshot stores = await FirebaseFirestore.instance.collection("salon").where("name",isEqualTo: dropDownValue.toString()).get();
+      QuerySnapshot stores = await FirebaseFirestore.instance
+          .collection("salon")
+          .where("name", isEqualTo: dropDownValue.toString())
+          .get();
       String storeId = stores.docs[0].id;
       Map<String, dynamic> dbData = {
         "name": nameController.text,
@@ -97,7 +105,7 @@ class ProductController extends GetxController {
         "store": dropDownValue.toString(),
         "productImage": uploadImage.value,
         "user": FirebaseAuth.instance.currentUser?.uid,
-        "storeId":storeId
+        "storeId": storeId
       };
       db.collection("products").add(dbData).then((value) {
         Fluttertoast.showToast(msg: "ProductAdded");
@@ -106,27 +114,28 @@ class ProductController extends GetxController {
     }
   }
 
-  removeProduct(String id){
+  removeProduct(String id) {
     FirebaseFirestore.instance.collection("products").doc(id).delete();
     Fluttertoast.showToast(msg: "Delete Successful");
     update();
   }
 
-  placeOrder(String productId,String storeId, Map<String,dynamic> productData){
+  placeOrder(
+      String productId, String storeId, Map<String, dynamic> productData) {
     Map<String, dynamic> dbData = {
-        "name": nameController.text,
-        "contact":contactController.text,
-        "address":addressController.text,
-        "city":cityController.text,
-        "pincode":pincodeController.text,
-        "storeId": storeId,
-        "productId":productId,
-        "userId": FirebaseAuth.instance.currentUser?.uid
-      };
-      dbData.addAll(productData);
-      db.collection("orders").add(dbData).then((value) {
-        Fluttertoast.showToast(msg: "Order Placed");
-        Get.back();
-      });
+      "name": nameController.text,
+      "contact": contactController.text,
+      "address": addressController.text,
+      "city": cityController.text,
+      "pincode": pincodeController.text,
+      "storeId": storeId,
+      "productId": productId,
+      "userId": FirebaseAuth.instance.currentUser?.uid
+    };
+    dbData.addAll(productData);
+    db.collection("orders").add(dbData).then((value) {
+      Fluttertoast.showToast(msg: "Order Placed");
+      Get.back();
+    });
   }
 }
