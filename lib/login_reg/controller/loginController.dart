@@ -57,11 +57,8 @@ class LoginController extends GetxController {
             .set({
           'name': userCredential.user?.displayName,
           'uid': userCredential.user?.uid,
-          "mess": [],
-          "hostel": [],
-          "salon": [],
-          "stationery": [],
-          "isStudent": true
+          "isStudent": true,
+          "email":userCredential.user?.email
         });
       }
       Get.to(() => StudentDashboard(), binding: StudentDashboardBinding());

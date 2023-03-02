@@ -51,10 +51,10 @@ class MyApp extends StatelessWidget {
                     future: loginController.isUserStudent(),
                     initialData: null,
                     builder: ((context, snapshot) {
-                    if(snapshot.data==true) {
-                      return StudentDashboard();
-                    } else {
+                    if(snapshot.data!=true) {
                       return Dashboard();
+                    } else {
+                      return StudentDashboard();
                     }
                   }));               
                 }

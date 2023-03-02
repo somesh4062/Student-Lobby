@@ -6,9 +6,13 @@ import 'package:student_lobby/product/controller/productController.dart';
 import 'package:student_lobby/widgets/widget.dart';
 
 class SalonOrderView extends StatelessWidget {
-  SalonOrderView({Key? key}) : super(key: key);
+  String storeId;
+  String productId;
+  Map<String, dynamic> productData;
+  String productType;
+  SalonOrderView({Key? key, required this.storeId, required this.productId, required  this.productData,required this.productType,}) : super(key: key);
 
-  ProductController productController = Get.find<ProductController>();
+  ProductController productController = Get.put<ProductController>(ProductController());
 
   @override
   Widget build(BuildContext context) {
@@ -157,7 +161,9 @@ class SalonOrderView extends StatelessWidget {
                 },
               ),
 
-              regularbtn("Book", () {})
+              regularbtn("Book", () {
+                  productController.placeOrder(productId, storeId, productData,productType);
+              })
             ],
           ),
         )),

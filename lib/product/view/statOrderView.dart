@@ -7,11 +7,14 @@ class StatOrderView extends StatelessWidget {
   String storeId;
   String productId;
   Map<String, dynamic> productData;
+  String productType;
   StatOrderView(
       {Key? key,
       required this.storeId,
       required this.productId,
-      required this.productData})
+      required this.productData,
+      required this.productType,
+      })
       : super(key: key);
 
   ProductController productController = Get.put(ProductController());
@@ -62,7 +65,7 @@ class StatOrderView extends StatelessWidget {
                 textController: productController.pincodeController,
               ),
               regularbtn("Place Order", () {
-                productController.placeOrder(productId, storeId, productData);
+                productController.placeOrder(productId, storeId, productData,productType);
               })
             ],
           ),

@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:student_lobby/product/view/salonOrderView.dart';
 import 'package:student_lobby/product/view/statOrderView.dart';
 
 class StuProductList extends StatelessWidget {
@@ -64,10 +65,17 @@ class StuProductList extends StatelessWidget {
                                   "price": doc["price"],
                                   "productImage": doc["productImage"]
                                 };
+                                if(doc["type"]=="Stationery"){
                                 Get.to(() => StatOrderView(
                                     storeId: docId,
                                     productId: doc.id,
-                                    productData: productData));
+                                    productData: productData,productType: doc["type"]));
+                                }else{
+                                  Get.to(() => SalonOrderView(
+                                    storeId: docId,
+                                    productId: doc.id,
+                                    productData: productData,productType: doc["type"]));
+                                }
                               },
                               child: Text("Buy")),
                         )),

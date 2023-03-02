@@ -7,6 +7,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:student_lobby/home/view/registeredServicesView.dart';
 
@@ -29,12 +30,21 @@ class ServicesController extends GetxController {
   RxList<dynamic> userMess = [].obs;
   RxList<dynamic> userStationery = [].obs;
   RxList<dynamic> userSalon = [].obs;
+  RxList<QueryDocumentSnapshot> selectedOrders = <QueryDocumentSnapshot>[].obs;
 
 
   @override
-  void onInit(){
+  void onInit()async{
     super.onInit();
     getUserServices();
+    
+  FirebaseFirestore.instance.collection("orders").snapshots().listen(
+    (data){
+      getOrders();
+      update();
+    }
+  );
+    
   }
 
   convertToArray(String str) {
@@ -202,7 +212,7 @@ registerSalonService(name, ownerName, email, contact, state, city,
     update();
   }
   
-  void getUserServices()async {
+  getUserServices()async {
     debugPrint("Called");
     var result = await FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser?.uid).get();
     userHostel.value = result["hostel"];
@@ -240,12 +250,17 @@ registerSalonService(name, ownerName, email, contact, state, city,
 
   Future<List<QueryDocumentSnapshot>> getOrders() async{
     var data =await FirebaseFirestore.instance.collection("orders").get();
-    var selectedOrders = <QueryDocumentSnapshot>[];
+    debugPrint("Selected List"+ userSalon.toString());
+    debugPrint("Selected List2"+ userStationery.toString());
     for (int i = 0; i< data.docs.length;i++){
+      debugPrint("Selected "+ data.docs[i]["storeId"]);
       if(userSalon.contains(data.docs[i]["storeId"])|| userStationery.contains(data.docs[i]["storeId"])){
+        debugPrint("Selected St"+ data.docs[i]["storeId"]);
         selectedOrders.add(data.docs[i]);
       }
     }
+    update();
+    
     return selectedOrders;
   }
 }
