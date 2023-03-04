@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:student_lobby/home/controller/dashboardController.dart';
 import 'package:student_lobby/home/view/dashboard.dart';
+import 'package:student_lobby/home/view/statsView.dart';
 import 'package:student_lobby/login_reg/controller/loginController.dart';
 import 'package:student_lobby/login_reg/view/login.dart';
 import 'package:student_lobby/student_sec/view/studentDashboard.dart';
@@ -64,6 +65,7 @@ class MyApp extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             },
-          ));
+          )
+      );
         }  
 }

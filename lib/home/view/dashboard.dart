@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,8 +27,11 @@ class Dashboard extends StatelessWidget {
                   // Get.to(() => ProfileView());
                   dashboardController.changeTabIndex(3);
                 },
-                child: const CircleAvatar(
-                  backgroundImage: NetworkImage(
+                child: CircleAvatar(
+                  backgroundImage: 
+                  loginController.profileImage !=null ? CachedNetworkImageProvider(loginController.profileImage.value)
+                  
+                 : CachedNetworkImageProvider(
                       "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"),
                 ),
               ),
