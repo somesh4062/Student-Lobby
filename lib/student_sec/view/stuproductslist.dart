@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:student_lobby/product/view/salonOrderView.dart';
 import 'package:student_lobby/product/view/statOrderView.dart';
 
@@ -15,6 +16,7 @@ class StuProductList extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
+          title: Text("Products",style: GoogleFonts.acme(color: Colors.black),),
           leading: IconButton(
               onPressed: () {
                 Get.back();
@@ -49,12 +51,12 @@ class StuProductList extends StatelessWidget {
                           leading: CachedNetworkImage(
                               imageUrl: doc["productImage"] ??
                                   "https://cdn.pixabay.com/photo/2019/07/14/16/29/pen-4337524_1280.jpg"),
-                          title: Text("Product Name: " + doc["name"]),
+                          title: Text("Product Name: " + doc["name"],style: GoogleFonts.acme(),),
                           subtitle: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Description: " + doc["desc"]),
-                              Text("Price: Rs. " + doc["price"])
+                              Text("Description: " + doc["desc"],style: GoogleFonts.acme(),),
+                              Text("Price: Rs. " + doc["price"],style: GoogleFonts.acme(),)
                             ],
                           ),
                           trailing: ElevatedButton(
@@ -77,7 +79,7 @@ class StuProductList extends StatelessWidget {
                                     productData: productData,productType: doc["type"]));
                                 }
                               },
-                              child: Text("Buy")),
+                              child: Text("Buy",style: GoogleFonts.acme(),)),
                         )),
                   );
                 }).toList());

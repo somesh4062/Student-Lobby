@@ -19,6 +19,7 @@ class SalonOrderView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
+        title: Text("Confirm Order",style: GoogleFonts.acme(color: Colors.black),),
         leading: IconButton(
             onPressed: () {
               Get.back();

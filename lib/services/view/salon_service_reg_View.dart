@@ -18,6 +18,18 @@ class SalonServiceRegister extends StatelessWidget {
     return Form(
       key: _formKey,
       child: Scaffold(
+        appBar: AppBar(
+          title: Text("Salon Service",style: GoogleFonts.acme(color: Colors.black),),
+          backgroundColor: Colors.white,
+          leading: IconButton(
+              onPressed: () {
+                Get.back();
+              },
+              icon: const Icon(
+                Icons.arrow_back,
+                color: Colors.black,
+              )),
+        ),
         body: SafeArea(
             child: SingleChildScrollView(
           child: Center(
@@ -25,10 +37,10 @@ class SalonServiceRegister extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                Text(
-                  "Service Provider",
-                  style: GoogleFonts.acme(fontSize: 20),
-                ),
+                // Text(
+                //   "Service Provider",
+                //   style: GoogleFonts.acme(fontSize: 20),
+                // ),
                 Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: SizedBox(

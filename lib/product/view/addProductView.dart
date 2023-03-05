@@ -15,6 +15,18 @@ class AddProductView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+          title: Text("Add Product",style: GoogleFonts.acme(color: Colors.black),),
+          backgroundColor: Colors.white,
+          leading: IconButton(
+              onPressed: () {
+                Get.back();
+              },
+              icon: const Icon(
+                Icons.arrow_back,
+                color: Colors.black,
+              )),
+        ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: GetBuilder<ProductController>(

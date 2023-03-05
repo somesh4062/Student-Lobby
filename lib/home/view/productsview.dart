@@ -48,6 +48,7 @@ children: [
                     else{
                       debugPrint("Current User"+FirebaseAuth.instance.currentUser!.uid);
                       return ListView(
+                        
                          shrinkWrap: true,
                         scrollDirection: Axis.vertical,
                         children: snapshot.data!.docs.map((doc) {
@@ -56,7 +57,7 @@ children: [
                             child: Card(
                               elevation: 5,
                               child: ListTile(
-                                
+                                isThreeLine: true,
                                 leading: CachedNetworkImage(imageUrl: doc["productImage"], width: Get.width*0.20,height: Get.height*0.15,fit: BoxFit.cover,),
                                 title: Text(doc["name"]),
                                 subtitle: Column(
