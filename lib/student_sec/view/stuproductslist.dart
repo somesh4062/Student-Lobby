@@ -50,8 +50,11 @@ class StuProductList extends StatelessWidget {
                           isThreeLine: true,
                           leading: CachedNetworkImage(
                               imageUrl: doc["productImage"] ??
-                                  "https://cdn.pixabay.com/photo/2019/07/14/16/29/pen-4337524_1280.jpg"),
-                          title: Text("Product Name: " + doc["name"],style: GoogleFonts.acme(),),
+                                  "https://cdn.pixabay.com/photo/2019/07/14/16/29/pen-4337524_1280.jpg",
+                              errorWidget: (context, url, error) => CachedNetworkImage(imageUrl: "https://cdn.pixabay.com/photo/2019/07/14/16/29/pen-4337524_1280.jpg")),    
+                                  
+                                  
+                          title: Text("Product Name: " + doc["name"]),
                           subtitle: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
