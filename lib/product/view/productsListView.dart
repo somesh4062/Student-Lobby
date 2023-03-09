@@ -22,35 +22,39 @@ class ProductsListView extends StatelessWidget {
         );
       }
      else{
-      return Expanded(
-        child: ListView( 
-          shrinkWrap: true,
-          children: snapshot.data!.docs.map((doc) {
-          return Card(
-          elevation: 4,
-          child: ListTile(
-            isThreeLine: 
-            true,
-            leading: CachedNetworkImage(
+      return ListView( 
+        // shrinkWrap: true,
+        children: snapshot.data!.docs.map((doc) {
+        return Card(
+        // elevation: 4,
+        child: ListTile(
+          isThreeLine: 
+          true,
+          leading: SizedBox(
+            child: CachedNetworkImage(
                 imageUrl: doc.data().toString().contains("uploadImage")?doc["uploadImage"]:
                     "https://cdn.pixabay.com/photo/2016/11/23/18/14/fountain-pen-1854169_1280.jpg",
                 errorWidget:(context, url, error) =>  CachedNetworkImage(imageUrl: "https://cdn.pixabay.com/photo/2016/11/23/18/14/fountain-pen-1854169_1280.jpg"),        
             ),
-            title: Text(doc["name"]),
-            subtitle: Column(
-              // mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [Text("Area : "+doc["area"]), Text("City : "+doc["city"])],
-            ),
-            trailing: ElevatedButton(
+          ),
+          title: Text(doc["name"]),
+          subtitle: Column(
+            // mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [Text("Area : "+doc["area"]), Text("City : "+doc["city"])],
+          ),
+          trailing: Container(
+            height: Get.height * 0.05,
+            width: Get.width * 0.25,
+            child: ElevatedButton(
                 onPressed: () {
                   Get.to(() => StuProductList(docId: doc.id));
                 },
                 child: Text("Explore")),
           ),
-        );
-        }).toList()
         ),
+      );
+      }).toList()
       );
      }
     });
