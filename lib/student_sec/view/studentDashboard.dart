@@ -31,7 +31,7 @@ class StudentDashboard extends StatelessWidget {
           centerTitle: true,
           title: Text(
             "Student Lobby",
-            style: GoogleFonts.montserrat(color: Colors.black),
+            style: GoogleFonts.acme(color: Colors.black),
           ),
           actions: [
             Padding(
@@ -71,7 +71,7 @@ class StudentDashboard extends StatelessWidget {
     }));
   }
 
-  _bottomNavigationBarItem({IconData? icon, String? label}) {
+  _bottomNavigationBarItem({IconData? icon,  label}) {
     return BottomNavigationBarItem(icon: Icon(icon), label: label);
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:student_lobby/home/controller/searchViewController.dart';
 import 'package:student_lobby/home/view/registeredServicesView.dart';
 import 'package:student_lobby/product/view/productsListView.dart';
@@ -17,27 +18,27 @@ class SearchView extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
-          bottom: const TabBar(tabs: [
+          bottom:  TabBar(tabs: [
             Tab(
               child: Text(
                 "Hostel",
-                style: TextStyle(color: Colors.black),
+                style: GoogleFonts.acme(color: Colors.black),
               ),
             ),
             Tab(
                 child: Text(
               "Mess",
-              style: TextStyle(color: Colors.black),
+              style: GoogleFonts.acme(color: Colors.black),
             )),
             Tab(
                 child: Text(
               "Salon",
-              style: TextStyle(color: Colors.black),
+              style: GoogleFonts.acme(color: Colors.black),
             )),
             Tab(
               child: Text(
                 "Stationary",
-                style: TextStyle(color: Colors.black),
+                style: GoogleFonts.acme(color: Colors.black),
               ),
             )
           ]),
@@ -62,6 +63,7 @@ class SearchView extends StatelessWidget {
                       },
                       child: Icon(Icons.close)),
                   hintText: "Search",
+                  hintStyle: GoogleFonts.acme(color: Colors.black54)
                 ),
               ),
             ))
