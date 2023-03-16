@@ -32,19 +32,15 @@ class ServicesController extends GetxController {
   RxList<dynamic> userSalon = [].obs;
   RxList<QueryDocumentSnapshot> selectedOrders = <QueryDocumentSnapshot>[].obs;
 
-
   @override
-  void onInit()async{
+  void onInit() async {
     super.onInit();
     getUserServices();
-    
-  FirebaseFirestore.instance.collection("orders").snapshots().listen(
-    (data){
+
+    FirebaseFirestore.instance.collection("orders").snapshots().listen((data) {
       getOrders();
       update();
-    }
-  );
-    
+    });
   }
 
   convertToArray(String str) {
@@ -59,19 +55,21 @@ class ServicesController extends GetxController {
     final serviceImage =
         await ImagePicker.platform.getImage(source: ImageSource.gallery);
     //profileImage = image as File;
-    final ref = FirebaseStorage.instance.ref().child("profileImages/"+serviceImage!.name.toString());
+    final ref = FirebaseStorage.instance
+        .ref()
+        .child("profileImages/" + serviceImage!.name.toString());
     await ref.putFile(File(serviceImage.path));
     ref.getDownloadURL().then((value) {
       debugPrint(value);
       uploadImage.value = value;
       update();
     });
-    
+
     update();
   }
 
-  registerHostelService(name, ownerName, rent, email, contact, state, city,
-      area, address) async {
+  registerHostelService(
+      name, ownerName, rent, email, contact, state, city, area, address) async {
     var db = FirebaseFirestore.instance;
 
     final hostel = {
@@ -105,8 +103,8 @@ class ServicesController extends GetxController {
     update();
   }
 
-registerSalonService(name, ownerName, email, contact, state, city,
-      area, address) async {
+  registerSalonService(
+      name, ownerName, email, contact, state, city, area, address) async {
     var db = FirebaseFirestore.instance;
 
     final salon = {
@@ -139,8 +137,8 @@ registerSalonService(name, ownerName, email, contact, state, city,
     update();
   }
 
-  registerStationeryService(name, ownerName,  email, contact, state, city,
-      area, address) async {
+  registerStationeryService(
+      name, ownerName, email, contact, state, city, area, address) async {
     var db = FirebaseFirestore.instance;
 
     final stationery = {
@@ -173,18 +171,15 @@ registerSalonService(name, ownerName, email, contact, state, city,
     update();
   }
 
-
-
-
-   registerMessService(name, ownerName, perMonth,perPlate, email, contact, state, city,
-      area, address) async {
+  registerMessService(name, ownerName, perMonth, perPlate, email, contact,
+      state, city, area, address) async {
     var db = FirebaseFirestore.instance;
 
     final mess = {
       "name": name,
       "ownerName": ownerName,
       "perMonth": perMonth,
-      "perPlate" : perPlate,
+      "perPlate": perPlate,
       "email": email,
       "contact": contact,
       "state": state,
@@ -211,36 +206,50 @@ registerSalonService(name, ownerName, email, contact, state, city,
     getUserServices();
     update();
   }
-  
-  getUserServices()async {
+
+  getUserServices() async {
     debugPrint("Called");
-    var result = await FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser?.uid).get();
+    var result = await FirebaseFirestore.instance
+        .collection("Users")
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .get();
     userHostel.value = result["hostel"];
-    userMess.value=result["mess"];
-    userStationery.value=result["stationery"];
-    userSalon.value=result["salon"];
-    debugPrint("Mess Count"+ userMess.length.toString());
+    userMess.value = result["mess"];
+    userStationery.value = result["stationery"];
+    userSalon.value = result["salon"];
+    debugPrint("Mess Count" + userMess.length.toString());
     update();
   }
 
-  void deleteUserService(ServiceType? serviceType,int index)async{
-    switch(serviceType){
-      
+  void deleteUserService(ServiceType? serviceType, int index) async {
+    switch (serviceType) {
       case ServiceType.HOSTEL:
         userHostel.removeAt(index);
-        FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser?.uid).update({"hostel":userHostel});
+        FirebaseFirestore.instance
+            .collection("Users")
+            .doc(FirebaseAuth.instance.currentUser?.uid)
+            .update({"hostel": userHostel});
         break;
       case ServiceType.MESS:
         userMess.removeAt(index);
-        FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser?.uid).update({"mess":userMess});
+        FirebaseFirestore.instance
+            .collection("Users")
+            .doc(FirebaseAuth.instance.currentUser?.uid)
+            .update({"mess": userMess});
         break;
       case ServiceType.SALON:
         userSalon.removeAt(index);
-        FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser?.uid).update({"salon":userSalon});
+        FirebaseFirestore.instance
+            .collection("Users")
+            .doc(FirebaseAuth.instance.currentUser?.uid)
+            .update({"salon": userSalon});
         break;
       case ServiceType.STATIONERY:
         userStationery.removeAt(index);
-        FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser?.uid).update({"stationery":userStationery});
+        FirebaseFirestore.instance
+            .collection("Users")
+            .doc(FirebaseAuth.instance.currentUser?.uid)
+            .update({"stationery": userStationery});
         break;
       case null:
         break;
@@ -248,19 +257,20 @@ registerSalonService(name, ownerName, email, contact, state, city,
     update();
   }
 
-  Future<List<QueryDocumentSnapshot>> getOrders() async{
-    var data =await FirebaseFirestore.instance.collection("orders").get();
-    debugPrint("Selected List"+ userSalon.toString());
-    debugPrint("Selected List2"+ userStationery.toString());
-    for (int i = 0; i< data.docs.length;i++){
-      debugPrint("Selected "+ data.docs[i]["storeId"]);
-      if(userSalon.contains(data.docs[i]["storeId"])|| userStationery.contains(data.docs[i]["storeId"])){
-        debugPrint("Selected St"+ data.docs[i]["storeId"]);
+  Future<List<QueryDocumentSnapshot>> getOrders() async {
+    var data = await FirebaseFirestore.instance.collection("orders").get();
+    debugPrint("Selected List" + userSalon.toString());
+    debugPrint("Selected List2" + userStationery.toString());
+    for (int i = 0; i < data.docs.length; i++) {
+      debugPrint("Selected " + data.docs[i]["storeId"]);
+      if (userSalon.contains(data.docs[i]["storeId"]) ||
+          userStationery.contains(data.docs[i]["storeId"])) {
+        debugPrint("Selected St" + data.docs[i]["storeId"]);
         selectedOrders.add(data.docs[i]);
       }
     }
     update();
-    
+
     return selectedOrders;
   }
 }

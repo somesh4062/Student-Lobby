@@ -36,10 +36,11 @@ class SearchView extends StatelessWidget {
               style: GoogleFonts.acme(color: Colors.black),
             )),
             Tab(
-              child: Text(
-                "Stationary",
-                style: GoogleFonts.acme(color: Colors.black),
-              ),
+              text: "Stationary",
+              // child: Text(
+              //   "Stationary",
+              //   style: GoogleFonts.acme(color: Colors.black),
+              // ),
             )
           ]),
           actions: <Widget>[

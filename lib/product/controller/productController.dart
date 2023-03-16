@@ -20,14 +20,8 @@ class ProductController extends GetxController {
   TextEditingController cityController = TextEditingController();
   TextEditingController pincodeController = TextEditingController();
 
-  DateTime dateTime = DateTime(
-    DateTime.now().year,
-    DateTime.now().month,
-    DateTime.now().day,
-    DateTime.now().hour
-    
-
-  );
+  DateTime dateTime = DateTime(DateTime.now().year, DateTime.now().month,
+      DateTime.now().day, DateTime.now().hour);
   ServicesController servicesController = Get.put(ServicesController());
   String dropDownValue = "Select Store";
   ServiceType selectedType = ServiceType.STATIONERY;
@@ -36,7 +30,7 @@ class ProductController extends GetxController {
   RxString uploadImage = "".obs;
 
   @override
-  void onInit() async{
+  void onInit() async {
     super.onInit();
     getUserServices(ServiceType.STATIONERY);
   }
@@ -93,7 +87,8 @@ class ProductController extends GetxController {
       Fluttertoast.showToast(msg: "Please select a store");
     } else {
       QuerySnapshot stores = await FirebaseFirestore.instance
-          .collection(selectedType == ServiceType.STATIONERY ? "stationery" : "salon")
+          .collection(
+              selectedType == ServiceType.STATIONERY ? "stationery" : "salon")
           .where("name", isEqualTo: dropDownValue.toString())
           .get();
       String storeId = stores.docs[0].id;
@@ -120,9 +115,8 @@ class ProductController extends GetxController {
     update();
   }
 
-  placeOrder(
-      String productId, String storeId, Map<String, dynamic> productData,String productType) {
-
+  placeOrder(String productId, String storeId, Map<String, dynamic> productData,
+      String productType) {
     Map<String, dynamic> dbData = {
       "name": nameController.text,
       "contact": contactController.text,
@@ -134,7 +128,7 @@ class ProductController extends GetxController {
       "userId": FirebaseAuth.instance.currentUser?.uid
     };
     dbData.addAll(productData);
-    if(productType=="Salon"){
+    if (productType == "Salon") {
       dbData.addAll({"bookingTime": dateTime.toString()});
     }
     db.collection("orders").add(dbData).then((value) {

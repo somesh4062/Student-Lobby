@@ -24,29 +24,21 @@ class ProfileView extends GetView {
                   init: LoginController(),
                   builder: (controller) {
                     return InkWell(
-                      onTap: () {
-                        loginController.getProfileImage();
-                      },
-                      child:  
-                      
-                      
-                      CircleAvatar(
-                        backgroundImage: 
-                        
-                        
-                        
-                        loginController.profileImage != null
-                            ? CachedNetworkImageProvider(
-                                loginController.profileImage.value)
-                            : const CachedNetworkImageProvider(
-                                "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png") ,
+                        onTap: () {
+                          loginController.getProfileImage();
+                        },
+                        child: CircleAvatar(
+                          backgroundImage: loginController.profileImage != null
+                              ? CachedNetworkImageProvider(
+                                  loginController.profileImage.value)
+                              : const CachedNetworkImageProvider(
+                                  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"),
 
-                        // NetworkImage(
-                        //   loginController.profileImage.value,
-                        // ),
-                        radius: 40,
-                      )
-                    );
+                          // NetworkImage(
+                          //   loginController.profileImage.value,
+                          // ),
+                          radius: 40,
+                        ));
                   },
                 ),
               ),

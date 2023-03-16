@@ -10,20 +10,25 @@ class StatsView extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
-          title: Text("Growth",style: GoogleFonts.acme(color: Colors.black),),
+          title: Text(
+            "Growth",
+            style: GoogleFonts.acme(color: Colors.black),
+          ),
           leading: IconButton(
               onPressed: () {
                 Get.back();
               },
-              icon:const Icon( Icons.arrow_back,color: Colors.black,)),
+              icon: const Icon(
+                Icons.arrow_back,
+                color: Colors.black,
+              )),
         ),
         body: SafeArea(
           child: SingleChildScrollView(
             child: Column(
-             // crossAxisAlignment: CrossAxisAlignment.center,
+              // crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Center(

@@ -52,17 +52,28 @@ class ServicesListView extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                                "Contact Number: " + doc["contact"].toString(),
-                          style: GoogleFonts.acme(color: Colors.black),),
+                              "Contact Number: " + doc["contact"].toString(),
+                              style: GoogleFonts.acme(color: Colors.black),
+                            ),
                             serviceType == ServiceType.HOSTEL
-                                ? Text("Rent: " + doc["rent"],
-                          style: GoogleFonts.acme(color: Colors.black),)
-                                : Text("Per Month: " + doc["perMonth"],
-                          style: GoogleFonts.acme(color: Colors.black),),
-                            Text("Address: " + doc["address"],
-                          style: GoogleFonts.acme(color: Colors.black),),
-                            Text("City: " + doc["city"],
-                          style: GoogleFonts.acme(color: Colors.black),),
+                                ? Text(
+                                    "Rent: " + doc["rent"],
+                                    style:
+                                        GoogleFonts.acme(color: Colors.black),
+                                  )
+                                : Text(
+                                    "Per Month: " + doc["perMonth"],
+                                    style:
+                                        GoogleFonts.acme(color: Colors.black),
+                                  ),
+                            Text(
+                              "Address: " + doc["address"],
+                              style: GoogleFonts.acme(color: Colors.black),
+                            ),
+                            Text(
+                              "City: " + doc["city"],
+                              style: GoogleFonts.acme(color: Colors.black),
+                            ),
                           ],
                         ),
                         leading: SizedBox(
@@ -70,6 +81,10 @@ class ServicesListView extends StatelessWidget {
                             imageUrl: doc.get("uploadImage") ??
                                 "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.UY0vt0ARKbq0EsA_-C4nVQHaE7%26pid%3DApi&f=1&ipt=f09a282b4a93aa83d743340b02074ea066a23920ab070767301bde447ccadad1&ipo=images",
                             fit: BoxFit.cover,
+                            errorWidget: (context, url, error) =>
+                                CachedNetworkImage(
+                                    imageUrl:
+                                        "https://cdn.pixabay.com/photo/2016/11/23/18/14/fountain-pen-1854169_1280.jpg"),
                           ),
                         ),
                       ),

@@ -18,7 +18,10 @@ class StationeryRegisterView extends StatelessWidget {
       key: _formKey,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Stationery Service",style: GoogleFonts.acme(color: Colors.black),),
+          title: Text(
+            "Stationery Service",
+            style: GoogleFonts.acme(color: Colors.black),
+          ),
           backgroundColor: Colors.white,
           leading: IconButton(
               onPressed: () {
@@ -91,17 +94,16 @@ class StationeryRegisterView extends StatelessWidget {
   }
 
   void onPressed() {
-    if(_formKey.currentState!.validate()){
-servicesController.registerStationeryService(
-        servicesController.nameController.text,
-        servicesController.ownerNameController.text,
-        servicesController.emailController.text,
-        servicesController.contactController.text,
-        servicesController.stateController.text,
-        servicesController.cityController.text,
-        servicesController.areaController.text,
-        servicesController.addressController.text);
-  
+    if (_formKey.currentState!.validate()) {
+      servicesController.registerStationeryService(
+          servicesController.nameController.text,
+          servicesController.ownerNameController.text,
+          servicesController.emailController.text,
+          servicesController.contactController.text,
+          servicesController.stateController.text,
+          servicesController.cityController.text,
+          servicesController.areaController.text,
+          servicesController.addressController.text);
     }
-    }
+  }
 }

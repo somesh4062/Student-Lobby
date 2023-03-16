@@ -10,16 +10,26 @@ class SalonOrderView extends StatelessWidget {
   String productId;
   Map<String, dynamic> productData;
   String productType;
-  SalonOrderView({Key? key, required this.storeId, required this.productId, required  this.productData,required this.productType,}) : super(key: key);
+  SalonOrderView({
+    Key? key,
+    required this.storeId,
+    required this.productId,
+    required this.productData,
+    required this.productType,
+  }) : super(key: key);
 
-  ProductController productController = Get.put<ProductController>(ProductController());
+  ProductController productController =
+      Get.put<ProductController>(ProductController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text("Confirm Order",style: GoogleFonts.acme(color: Colors.black),),
+        title: Text(
+          "Confirm Order",
+          style: GoogleFonts.acme(color: Colors.black),
+        ),
         leading: IconButton(
             onPressed: () {
               Get.back();
@@ -163,7 +173,8 @@ class SalonOrderView extends StatelessWidget {
               ),
 
               regularbtn("Book", () {
-                  productController.placeOrder(productId, storeId, productData,productType);
+                productController.placeOrder(
+                    productId, storeId, productData, productType);
               })
             ],
           ),

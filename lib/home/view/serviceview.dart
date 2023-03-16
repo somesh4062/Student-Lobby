@@ -14,7 +14,6 @@ class ServicesView extends GetView {
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  
                   children: [
                     serviceTab(Icons.dining, "Mess"),
                     serviceTab(Icons.cut, "Salon")
@@ -22,7 +21,6 @@ class ServicesView extends GetView {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  
                   children: [
                     serviceTab(Icons.store_mall_directory, "Stationery"),
                     serviceTab(Icons.hotel_sharp, "Hostel")

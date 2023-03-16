@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:student_lobby/home/controller/dashboardController.dart';
 import 'package:student_lobby/home/view/dashboard.dart';
-import 'package:student_lobby/home/view/statsView.dart';
 import 'package:student_lobby/login_reg/controller/loginController.dart';
 import 'package:student_lobby/login_reg/view/login.dart';
 import 'package:student_lobby/student_sec/view/studentDashboard.dart';
@@ -14,58 +13,55 @@ import 'student_sec/controller/studentDashboardController.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp( MyApp());
+  runApp(MyApp());
 }
- 
+
 class MyApp extends StatelessWidget {
-   MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
   LoginController loginController = Get.put(LoginController());
   DashboardController dashboardController = Get.put(DashboardController());
-    StudentDashboardController controller = Get.put(StudentDashboardController());
+  StudentDashboardController controller = Get.put(StudentDashboardController());
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return  GetMaterialApp(
-      // getPages: AppPages.list,
-      // initialRoute: AppRoutes.DASHBOARD,
-      debugShowCheckedModeBanner: false,
-      home: 
-      // SearchView()
-     // RegServicesView()
-    //  AddProductView()
-      
-      StreamBuilder<User?>(
-            stream: FirebaseAuth.instance.authStateChanges(),
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              var isStudent=true;
-              if (snapshot.hasError) {
-                return Text(snapshot.error.toString());
-              }
-              if (snapshot.connectionState == ConnectionState.active) {
-                if (snapshot.data == null) {
-                  
-                  return Login();
-                  
-                } else {
-                  return FutureBuilder<bool>(
+    return GetMaterialApp(
+        // getPages: AppPages.list,
+        // initialRoute: AppRoutes.DASHBOARD,
+        debugShowCheckedModeBanner: false,
+        home:
+            // SearchView()
+            // RegServicesView()
+            //  AddProductView()
+
+            StreamBuilder<User?>(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            var isStudent = true;
+            if (snapshot.hasError) {
+              return Text(snapshot.error.toString());
+            }
+            if (snapshot.connectionState == ConnectionState.active) {
+              if (snapshot.data == null) {
+                return Login();
+              } else {
+                return FutureBuilder<bool>(
                     future: loginController.isUserStudent(),
                     initialData: null,
                     builder: ((context, snapshot) {
-                    if(snapshot.data!=true) {
-                      return Dashboard();
-                    } else {
-                      return StudentDashboard();
-                    }
-                  }));               
-                }
+                      if (snapshot.data != true) {
+                        return Dashboard();
+                      } else {
+                        return StudentDashboard();
+                      }
+                    }));
               }
-  
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            },
-          )
-      );
-        }  
+            }
+
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          },
+        ));
+  }
 }

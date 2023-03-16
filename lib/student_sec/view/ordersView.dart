@@ -10,36 +10,45 @@ class OrdersView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection("orders").where("userId",isEqualTo: FirebaseAuth.instance.currentUser?.uid).snapshots(),
-        builder: (context,snapshot) {
-        if(snapshot.connectionState!=ConnectionState.active){
-            return const Center(
-            child: CircularProgressIndicator(),
-            );
-          }
-          else{
-            return ListView(
-              children: snapshot.data!.docs.map((doc) {
-                return Card(
-              elevation: 4,
-              child: ListTile(
-                isThreeLine: true,
-                leading: CachedNetworkImage(
-                    imageUrl: doc["productImage"]??
-                        "https://cdn.pixabay.com/photo/2015/08/10/20/17/handbag-883122_1280.jpg"),
-                title: Text("Product Name: "+doc["productName"] ),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [Text("Desc: "+doc["description"]), Text("Price: "+doc["price"])],
-                ),
-                //trailing: IconButton(onPressed: () {}, icon: Icon(Icons.delete)),
-              ),
-            );
-              }).toList(),
-            );
-            
-                    }
-      }),
+          stream: FirebaseFirestore.instance
+              .collection("orders")
+              .where("userId",
+                  isEqualTo: FirebaseAuth.instance.currentUser?.uid)
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState != ConnectionState.active) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else {
+              return ListView(
+                children: snapshot.data!.docs.map((doc) {
+                  return Card(
+                    elevation: 4,
+                    child: ListTile(
+                      isThreeLine: true,
+                      leading: CachedNetworkImage(
+                        imageUrl: doc["productImage"] ??
+                            "https://cdn.pixabay.com/photo/2015/08/10/20/17/handbag-883122_1280.jpg",
+                        errorWidget: (context, url, error) => CachedNetworkImage(
+                            imageUrl:
+                                "https://cdn.pixabay.com/photo/2016/11/23/18/14/fountain-pen-1854169_1280.jpg"),
+                      ),
+                      title: Text("Product Name: " + doc["productName"]),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Desc: " + doc["description"]),
+                          Text("Price: " + doc["price"])
+                        ],
+                      ),
+                      //trailing: IconButton(onPressed: () {}, icon: Icon(Icons.delete)),
+                    ),
+                  );
+                }).toList(),
+              );
+            }
+          }),
     );
   }
 }

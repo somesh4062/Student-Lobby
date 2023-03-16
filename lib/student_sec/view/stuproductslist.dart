@@ -16,7 +16,10 @@ class StuProductList extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
-          title: Text("Products",style: GoogleFonts.acme(color: Colors.black),),
+          title: Text(
+            "Products",
+            style: GoogleFonts.acme(color: Colors.black),
+          ),
           leading: IconButton(
               onPressed: () {
                 Get.back();
@@ -51,15 +54,22 @@ class StuProductList extends StatelessWidget {
                           leading: CachedNetworkImage(
                               imageUrl: doc["productImage"] ??
                                   "https://cdn.pixabay.com/photo/2017/11/10/04/47/image-2935360_1280.png",
-                              errorWidget: (context, url, error) => CachedNetworkImage(imageUrl: "https://cdn0.iconfinder.com/data/icons/lagotline-files-document/64/Files_and_document-31-512.png")),    
-                                  
-                                  
+                              errorWidget: (context, url, error) =>
+                                  CachedNetworkImage(
+                                      imageUrl:
+                                          "https://cdn0.iconfinder.com/data/icons/lagotline-files-document/64/Files_and_document-31-512.png")),
                           title: Text("Product Name: " + doc["name"]),
                           subtitle: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Description: " + doc["desc"],style: GoogleFonts.acme(),),
-                              Text("Price: Rs. " + doc["price"],style: GoogleFonts.acme(),)
+                              Text(
+                                "Description: " + doc["desc"],
+                                style: GoogleFonts.acme(),
+                              ),
+                              Text(
+                                "Price: Rs. " + doc["price"],
+                                style: GoogleFonts.acme(),
+                              )
                             ],
                           ),
                           trailing: ElevatedButton(
@@ -70,19 +80,24 @@ class StuProductList extends StatelessWidget {
                                   "price": doc["price"],
                                   "productImage": doc["productImage"]
                                 };
-                                if(doc["type"]=="Stationery"){
-                                Get.to(() => StatOrderView(
-                                    storeId: docId,
-                                    productId: doc.id,
-                                    productData: productData,productType: doc["type"]));
-                                }else{
+                                if (doc["type"] == "Stationery") {
+                                  Get.to(() => StatOrderView(
+                                      storeId: docId,
+                                      productId: doc.id,
+                                      productData: productData,
+                                      productType: doc["type"]));
+                                } else {
                                   Get.to(() => SalonOrderView(
-                                    storeId: docId,
-                                    productId: doc.id,
-                                    productData: productData,productType: doc["type"]));
+                                      storeId: docId,
+                                      productId: doc.id,
+                                      productData: productData,
+                                      productType: doc["type"]));
                                 }
                               },
-                              child: Text("Buy",style: GoogleFonts.acme(),)),
+                              child: Text(
+                                "Buy",
+                                style: GoogleFonts.acme(),
+                              )),
                         )),
                   );
                 }).toList());

@@ -19,7 +19,10 @@ class HostelServiceRegView extends StatelessWidget {
       key: _formKey,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Hostel Service",style: GoogleFonts.acme(color: Colors.black),),
+          title: Text(
+            "Hostel Service",
+            style: GoogleFonts.acme(color: Colors.black),
+          ),
           backgroundColor: Colors.white,
           leading: IconButton(
               onPressed: () {
@@ -95,19 +98,17 @@ class HostelServiceRegView extends StatelessWidget {
   }
 
   void onPressed() {
-
-    if (_formKey.currentState!.validate()){
+    if (_formKey.currentState!.validate()) {
       servicesController.registerHostelService(
-        servicesController.nameController.text,
-        servicesController.ownerNameController.text,
-        servicesController.rentController.text,
-        servicesController.emailController.text,
-        servicesController.contactController.text,
-        servicesController.stateController.text,
-        servicesController.cityController.text,
-        servicesController.areaController.text,
-        servicesController.addressController.text);
+          servicesController.nameController.text,
+          servicesController.ownerNameController.text,
+          servicesController.rentController.text,
+          servicesController.emailController.text,
+          servicesController.contactController.text,
+          servicesController.stateController.text,
+          servicesController.cityController.text,
+          servicesController.areaController.text,
+          servicesController.addressController.text);
     }
-    
   }
 }

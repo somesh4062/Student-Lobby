@@ -46,7 +46,7 @@ class StatOrderView extends StatelessWidget {
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(10.0),
                 child: Card(
                   elevation: 4,
                   child: ListTile(
@@ -57,27 +57,27 @@ class StatOrderView extends StatelessWidget {
               ),
               CustomTextField(
                 labelText: "FullName",
-                prefixIcon: Icon(Icons.abc),
+                prefixIcon: const Icon(Icons.abc),
                 textController: productController.nameController,
               ),
               CustomTextField(
                 labelText: "Contact",
-                prefixIcon: Icon(Icons.abc),
+                prefixIcon: const Icon(Icons.abc),
                 textController: productController.contactController,
               ),
               CustomTextField(
                 labelText: "Address",
-                prefixIcon: Icon(Icons.area_chart),
+                prefixIcon: const Icon(Icons.area_chart),
                 textController: productController.addressController,
               ),
               CustomTextField(
                 labelText: "City",
-                prefixIcon: Icon(Icons.location_city),
+                prefixIcon: const Icon(Icons.location_city),
                 textController: productController.cityController,
               ),
               CustomTextField(
                 labelText: "Pincode",
-                prefixIcon: Icon(Icons.location_pin),
+                prefixIcon: const Icon(Icons.location_pin),
                 textController: productController.pincodeController,
               ),
               regularbtn("Place Order", () {

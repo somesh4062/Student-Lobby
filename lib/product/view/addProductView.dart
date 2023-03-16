@@ -16,116 +16,130 @@ class AddProductView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text("Add Product",style: GoogleFonts.acme(color: Colors.black),),
-          backgroundColor: Colors.white,
-          leading: IconButton(
-              onPressed: () {
-                Get.back();
-              },
-              icon: const Icon(
-                Icons.arrow_back,
-                color: Colors.black,
-              )),
+        title: Text(
+          "Add Product",
+          style: GoogleFonts.acme(color: Colors.black),
         ),
+        backgroundColor: Colors.white,
+        leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            )),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: GetBuilder<ProductController>(
-            init: ProductController(),
-            builder: (controller) {
-              return Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: InkWell(
-                      onTap: () {
-                        productController.getProductImage();
-                      },
-                      child: Card(
-                        child: SizedBox(
-                          height: 100,
-                          width: 100,
-                          child: productController.uploadImage.value==""?Icon(Icons.add_photo_alternate):CachedNetworkImage(imageUrl: productController.uploadImage.value),
+              init: ProductController(),
+              builder: (controller) {
+                return Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: InkWell(
+                        onTap: () {
+                          productController.getProductImage();
+                        },
+                        child: Card(
+                          child: SizedBox(
+                            height: 100,
+                            width: 100,
+                            child: productController.uploadImage.value == ""
+                                ? const Icon(Icons.add_photo_alternate)
+                                : CachedNetworkImage(
+                                    imageUrl:
+                                        productController.uploadImage.value,
+                                    errorWidget: (context, url, error) =>
+                                        CachedNetworkImage(
+                                            imageUrl:
+                                                "https://cdn.pixabay.com/photo/2016/11/23/18/14/fountain-pen-1854169_1280.jpg"),
+                                  ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  CustomTextField(
-                    textController: productController.nameController,
-                    labelText: "Name",
-                    prefixIcon: Icon(Icons.abc_rounded),
-                    type: false,
-                  ),
-                  CustomTextField(
-                    labelText: "Description",
-                    textController: productController.descController,
-                    prefixIcon: Icon(Icons.description),
-                    type: false,
-                  ),
-                  CustomTextField(
-                    labelText: "Price",
-                    textController: productController.priceController,
-                    prefixIcon: Icon(Icons.currency_rupee_sharp),
-                  ),
-                  Column(  
-                children: <Widget>[  
-                  ListTile(  
-                    title: Text('SALON' ,style: GoogleFonts.acme(),),  
-                    leading: Radio<ServiceType>(  
-                      value: ServiceType.SALON,  
-                      groupValue: productController.selectedType,  
-                      onChanged: (ServiceType? value) {  
-                         productController.data.clear();
-                         productController.data.add("Select Store");
-                         productController.getUserServices(value);
-                         productController.selectedType=value??ServiceType.SALON;
-                         productController.update();
-                         
-                      },  
-                    ),  
-                  ),  
-                  ListTile(  
-                    title:  Text('STATIONERY', style: GoogleFonts.acme(),),  
-                    leading: Radio(  
-                      value: ServiceType.STATIONERY,  
-                      groupValue: productController.selectedType,  
-                      onChanged: (ServiceType? value) {  
-                        productController.data.clear();
-                        productController.data.add("Select Store");
-                        productController.getUserServices(value);
-                        productController.selectedType=value??ServiceType.STATIONERY;
-                        productController.update();
-                      },  
-                    ),  
-                  ), 
-                ]), 
-        
-                  DropdownButton(  
-                    // Initial Value
-                    value: productController.dropDownValue, 
-                    // Down Arrow Icon
-                    icon: const Icon(Icons.keyboard_arrow_down),    
-                    // Array list of items
-                    items: productController.data.map((String items) {
-                      return DropdownMenuItem(
-                        value: items,
-                        child: Text(items),
-                      );
-                    }).toList(),
-                    // After selecting the desired option,it will
-                    // change button value to selected value
-                    onChanged: (String? newValue) => productController.setDropDownValue(newValue),
-                  ),
-                  // Autocomplete(optionsBuilder: optionsBuilder)
-                  
-                  regularbtn("Add ", () => productController.addProduct()),
-          
-                   
-          
-          
-                ],
-              );
-            }
-          ),
+                    CustomTextField(
+                      textController: productController.nameController,
+                      labelText: "Name",
+                      prefixIcon: Icon(Icons.abc_rounded),
+                      type: false,
+                    ),
+                    CustomTextField(
+                      labelText: "Description",
+                      textController: productController.descController,
+                      prefixIcon: Icon(Icons.description),
+                      type: false,
+                    ),
+                    CustomTextField(
+                      labelText: "Price",
+                      textController: productController.priceController,
+                      prefixIcon: Icon(Icons.currency_rupee_sharp),
+                    ),
+                    Column(children: <Widget>[
+                      ListTile(
+                        title: Text(
+                          'SALON',
+                          style: GoogleFonts.acme(),
+                        ),
+                        leading: Radio<ServiceType>(
+                          value: ServiceType.SALON,
+                          groupValue: productController.selectedType,
+                          onChanged: (ServiceType? value) {
+                            productController.data.clear();
+                            productController.data.add("Select Store");
+                            productController.getUserServices(value);
+                            productController.selectedType =
+                                value ?? ServiceType.SALON;
+                            productController.update();
+                          },
+                        ),
+                      ),
+                      ListTile(
+                        title: Text(
+                          'STATIONERY',
+                          style: GoogleFonts.acme(),
+                        ),
+                        leading: Radio(
+                          value: ServiceType.STATIONERY,
+                          groupValue: productController.selectedType,
+                          onChanged: (ServiceType? value) {
+                            productController.data.clear();
+                            productController.data.add("Select Store");
+                            productController.getUserServices(value);
+                            productController.selectedType =
+                                value ?? ServiceType.STATIONERY;
+                            productController.update();
+                          },
+                        ),
+                      ),
+                    ]),
+
+                    DropdownButton(
+                      // Initial Value
+                      value: productController.dropDownValue,
+                      // Down Arrow Icon
+                      icon: const Icon(Icons.keyboard_arrow_down),
+                      // Array list of items
+                      items: productController.data.map((String items) {
+                        return DropdownMenuItem(
+                          value: items,
+                          child: Text(items),
+                        );
+                      }).toList(),
+                      // After selecting the desired option,it will
+                      // change button value to selected value
+                      onChanged: (String? newValue) =>
+                          productController.setDropDownValue(newValue),
+                    ),
+                    // Autocomplete(optionsBuilder: optionsBuilder)
+
+                    regularbtn("Add ", () => productController.addProduct()),
+                  ],
+                );
+              }),
         ),
       ),
     );

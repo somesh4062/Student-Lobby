@@ -20,11 +20,16 @@ class StudentDashboard extends StatelessWidget {
     return GetBuilder<StudentDashboardController>(builder: ((controller) {
       return Scaffold(
         appBar: AppBar(
-          leading: Padding(
-            padding: const EdgeInsets.all(10),
-            child: const CircleAvatar(
-              backgroundImage: CachedNetworkImageProvider(
-                  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"),
+          leading: InkWell(
+            onTap: () {
+              controller.changeTabIndex(2);
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: const CircleAvatar(
+                backgroundImage: CachedNetworkImageProvider(
+                    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"),
+              ),
             ),
           ),
           backgroundColor: Colors.white,
@@ -71,7 +76,7 @@ class StudentDashboard extends StatelessWidget {
     }));
   }
 
-  _bottomNavigationBarItem({IconData? icon,  label}) {
+  _bottomNavigationBarItem({IconData? icon, label}) {
     return BottomNavigationBarItem(icon: Icon(icon), label: label);
   }
 }

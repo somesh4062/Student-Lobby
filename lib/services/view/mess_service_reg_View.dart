@@ -18,7 +18,10 @@ class MessServiceRegister extends StatelessWidget {
       key: _formKey,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Mess Service",style: GoogleFonts.acme(color: Colors.black),),
+          title: Text(
+            "Mess Service",
+            style: GoogleFonts.acme(color: Colors.black),
+          ),
           backgroundColor: Colors.white,
           leading: IconButton(
               onPressed: () {
@@ -65,25 +68,25 @@ class MessServiceRegister extends StatelessWidget {
                       )),
                 ),
                 textfield("Mess Name", servicesController.nameController, false,
-                    true, Icon(Icons.food_bank), null),
+                    true, const Icon(Icons.food_bank), null),
                 textfield("Owner Name", servicesController.ownerNameController,
-                    false, true, Icon(Icons.person), null),
+                    false, true, const Icon(Icons.person), null),
                 textfield("Per-Month", servicesController.perMonthController,
-                    false, true, Icon(Icons.currency_rupee), null),
+                    false, true, const Icon(Icons.currency_rupee), null),
                 textfield("Per-Plate", servicesController.perPlateController,
-                    false, true, Icon(Icons.currency_rupee), null),
+                    false, true, const Icon(Icons.currency_rupee), null),
                 textfield("Email", servicesController.emailController, false,
-                    true, Icon(Icons.email), null),
+                    true, const Icon(Icons.email), null),
                 textfield("Contact", servicesController.contactController,
-                    false, true, Icon(Icons.phone), null),
+                    false, true, const Icon(Icons.phone), null),
                 textfield("Address", servicesController.addressController,
-                    false, true, Icon(Icons.location_on), null),
+                    false, true, const Icon(Icons.location_on), null),
                 textfield("Area", servicesController.areaController, false,
-                    true, Icon(Icons.area_chart), null),
+                    true, const Icon(Icons.area_chart), null),
                 textfield("State", servicesController.stateController, false,
-                    true, Icon(Icons.map), null),
+                    true, const Icon(Icons.map), null),
                 textfield("City", servicesController.cityController, false,
-                    true, Icon(Icons.location_city), null),
+                    true, const Icon(Icons.location_city), null),
                 regularbtn("Register Service", onPressed)
               ],
             ),
@@ -94,19 +97,18 @@ class MessServiceRegister extends StatelessWidget {
   }
 
   void onPressed() {
-    if(_formKey.currentState!.validate()){
+    if (_formKey.currentState!.validate()) {
       servicesController.registerMessService(
-        servicesController.nameController.text,
-        servicesController.ownerNameController.text,
-        servicesController.perMonthController.text,
-        servicesController.perPlateController.text,
-        servicesController.emailController.text,
-        servicesController.contactController.text,
-        servicesController.stateController.text,
-        servicesController.cityController.text,
-        servicesController.areaController.text,
-        servicesController.addressController.text);
-
+          servicesController.nameController.text,
+          servicesController.ownerNameController.text,
+          servicesController.perMonthController.text,
+          servicesController.perPlateController.text,
+          servicesController.emailController.text,
+          servicesController.contactController.text,
+          servicesController.stateController.text,
+          servicesController.cityController.text,
+          servicesController.areaController.text,
+          servicesController.addressController.text);
     }
-    }
+  }
 }

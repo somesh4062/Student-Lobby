@@ -26,7 +26,10 @@ class RegServicesView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Registered Service",style: GoogleFonts.acme(color: Colors.black),),
+          title: Text(
+            "Registered Service",
+            style: GoogleFonts.acme(color: Colors.black),
+          ),
           backgroundColor: Colors.white,
           leading: IconButton(
               onPressed: () {
@@ -75,20 +78,23 @@ class RegServicesView extends StatelessWidget {
                                             elevation: 5,
                                             child: ListTile(
                                               leading: CachedNetworkImage(
-                                                  height: 100,
-                                                  width: 100,
-                                                  imageUrl: snapshot
-                                                          .data![index]
-                                                          .data()
-                                                          .toString()
-                                                          .contains(
-                                                              "uploadImage")
-                                                      ? snapshot.data![index]
-                                                          ["uploadImage"]
-                                                      : "https://images.pexels.com/photos/13519033/pexels-photo-13519033.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"),
-                                              title: Text(
-                                                  snapshot.data?[index]
-                                                      ["name"]),
+                                                height: 100,
+                                                width: 100,
+                                                imageUrl: snapshot.data![index]
+                                                        .data()
+                                                        .toString()
+                                                        .contains("uploadImage")
+                                                    ? snapshot.data![index]
+                                                        ["uploadImage"]
+                                                    : "https://images.pexels.com/photos/13519033/pexels-photo-13519033.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+                                                errorWidget: (context, url,
+                                                        error) =>
+                                                    CachedNetworkImage(
+                                                        imageUrl:
+                                                            "https://cdn.pixabay.com/photo/2016/11/23/18/14/fountain-pen-1854169_1280.jpg"),
+                                              ),
+                                              title: Text(snapshot.data?[index]
+                                                  ["name"]),
                                               subtitle: Text("Contact :" +
                                                   snapshot.data?[index]
                                                       ["contact"]),

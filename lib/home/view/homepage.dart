@@ -24,7 +24,9 @@ class HomePage extends GetView {
                       elevation: 5,
                       child: InkWell(
                         onTap: () {
-                          Get.to(()=>RegServicesView(serviceType: ServiceType.HOSTEL,));
+                          Get.to(() => RegServicesView(
+                                serviceType: ServiceType.HOSTEL,
+                              ));
                         },
                         child: ListTile(
                           leading: Icon(Icons.hotel_sharp),
@@ -41,7 +43,9 @@ class HomePage extends GetView {
                       elevation: 5,
                       child: InkWell(
                         onTap: () {
-                          Get.to(()=>RegServicesView(serviceType: ServiceType.MESS,));
+                          Get.to(() => RegServicesView(
+                                serviceType: ServiceType.MESS,
+                              ));
                         },
                         child: ListTile(
                           leading: Icon(Icons.food_bank),
@@ -57,12 +61,15 @@ class HomePage extends GetView {
                       elevation: 5,
                       child: InkWell(
                         onTap: () {
-                          Get.to(()=>RegServicesView(serviceType: ServiceType.SALON,));
+                          Get.to(() => RegServicesView(
+                                serviceType: ServiceType.SALON,
+                              ));
                         },
                         child: ListTile(
                           leading: Icon(Icons.cut),
                           title: Text("Salon"),
-                          trailing: Text(controller.userSalon.length.toString()),
+                          trailing:
+                              Text(controller.userSalon.length.toString()),
                         ),
                       ),
                     ),
@@ -73,7 +80,9 @@ class HomePage extends GetView {
                       elevation: 5,
                       child: InkWell(
                         onTap: () {
-                          Get.to(()=>RegServicesView(serviceType: ServiceType.STATIONERY,));
+                          Get.to(() => RegServicesView(
+                                serviceType: ServiceType.STATIONERY,
+                              ));
                         },
                         child: ListTile(
                           leading: Icon(Icons.store_mall_directory),

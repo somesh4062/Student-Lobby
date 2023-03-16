@@ -40,7 +40,7 @@ class Register extends StatelessWidget {
                               child: Column(
                                 //mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                 Padding(
+                                  Padding(
                                     padding: const EdgeInsets.all(10),
                                     child: Text(
                                       "Note : You will be Registered as Service Provider ",

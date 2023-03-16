@@ -28,11 +28,11 @@ class Dashboard extends StatelessWidget {
                   dashboardController.changeTabIndex(3);
                 },
                 child: CircleAvatar(
-                  backgroundImage: 
-                  loginController.profileImage !=null ? CachedNetworkImageProvider(loginController.profileImage.value)
-                  
-                 : CachedNetworkImageProvider(
-                      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"),
+                  backgroundImage: loginController.profileImage != null
+                      ? CachedNetworkImageProvider(
+                          loginController.profileImage.value)
+                      : const CachedNetworkImageProvider(
+                          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"),
                 ),
               ),
             ),
@@ -45,8 +45,8 @@ class Dashboard extends StatelessWidget {
             actions: [
               IconButton(
                   onPressed: () {
-                   // Get.to(() => SearchView());
-                   Get.to(()=> ReceivedOrdersView());
+                    // Get.to(() => SearchView());
+                    Get.to(() => ReceivedOrdersView());
                   },
                   icon: const Icon(
                     CupertinoIcons.bag,

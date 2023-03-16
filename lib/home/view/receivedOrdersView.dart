@@ -15,7 +15,10 @@ class ReceivedOrdersView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text("Received Orders",style: GoogleFonts.acme(color: Colors.black),),
+        title: Text(
+          "Received Orders",
+          style: GoogleFonts.acme(color: Colors.black),
+        ),
         leading: IconButton(
             onPressed: () {
               Get.back();
@@ -40,8 +43,12 @@ class ReceivedOrdersView extends StatelessWidget {
                     child: ListTile(
                       isThreeLine: true,
                       leading: CachedNetworkImage(
-                          imageUrl: doc["productImage"] ??
-                              "https://cdn.pixabay.com/photo/2015/08/10/20/17/handbag-883122_1280.jpg"),
+                        imageUrl: doc["productImage"] ??
+                            "https://cdn.pixabay.com/photo/2015/08/10/20/17/handbag-883122_1280.jpg",
+                        errorWidget: (context, url, error) => CachedNetworkImage(
+                            imageUrl:
+                                "https://cdn.pixabay.com/photo/2016/11/23/18/14/fountain-pen-1854169_1280.jpg"),
+                      ),
                       title: Text("Name: " + doc["name"]),
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

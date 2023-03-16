@@ -24,7 +24,6 @@ textfield(labelText, textController, bool type, bool editable, Icon? prefixicon,
     Icon? suffixIcon) {
   return CustomTextField(
       labelText: labelText,
-      
       textController: textController,
       type: type,
       editable: editable,
@@ -71,9 +70,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
       padding: const EdgeInsets.only(left: 30, right: 30, top: 10),
       child: TextFormField(
         style: GoogleFonts.acme(),
-        validator: MultiValidator([
-          RequiredValidator(errorText: "Fill the details")
-        ]),
+        validator:
+            MultiValidator([RequiredValidator(errorText: "Fill the details")]),
         onFieldSubmitted: widget.onSubmit,
         obscureText: widget.type ?? false,
         controller: widget.textController,
